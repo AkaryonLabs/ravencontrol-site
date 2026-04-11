@@ -39,42 +39,60 @@
     </header>
 
     <main id="top">
-      <section class="hero shell section-block">
-        <div class="hero-copy reveal-sequence">
-          <p class="eyebrow reveal-item">AI automation / local systems / operational control</p>
-          <h1 class="reveal-item">
-            Bring
-            <span>order</span>
-            to
-            <span>scattered</span>
-            operations.
-          </h1>
-          <p class="hero-text reveal-item">
-            Raven Control builds local-first AI systems, automation flows, and command
-            layers for businesses that need visibility, precision, and control.
-          </p>
-          <div class="hero-actions reveal-item">
-            <a class="button button-primary" href="#contact">Start the build</a>
-            <a class="button button-secondary" href="#systems">See the system</a>
-          </div>
-        </div>
+      <section class="hero-film">
+        <div class="hero-film__sticky shell">
+          <div class="hero-film__scene">
+            <div class="hero-backdrop" aria-hidden="true">
+              <div class="screen-glow"></div>
+              <div class="screen-shell">
+                <div class="screen-reflection"></div>
+                <div class="screen-ui">
+                  <p class="ui-chip ui-chip-1">Local AI</p>
+                  <p class="ui-chip ui-chip-2">Workflow Automation</p>
+                  <p class="ui-chip ui-chip-3">Operational Control</p>
+                  <p class="ui-chip ui-chip-4">Monitoring</p>
+                  <div class="ui-graph ui-graph-1"></div>
+                  <div class="ui-graph ui-graph-2"></div>
+                  <div class="ui-node ui-node-1"></div>
+                  <div class="ui-node ui-node-2"></div>
+                  <div class="ui-node ui-node-3"></div>
+                </div>
+              </div>
+              <div class="perch"></div>
+            </div>
 
-        <div class="hero-stage" aria-hidden="true">
-          <div class="scan-beam"></div>
-          <div class="signal-card signal-card-main">
-            <span class="signal-kicker">Command Layer</span>
-            <strong>Chaos becomes readable.</strong>
-            <p>Signals align. Workflows route. Operators regain control.</p>
+            <div class="hero-copy">
+              <p class="eyebrow reveal-item">Raven Control / watching the system</p>
+              <div class="hero-headlines">
+                <h1 class="hero-title hero-title-1">The raven watches the screen.</h1>
+                <h1 class="hero-title hero-title-2">The signal sharpens.</h1>
+                <h1 class="hero-title hero-title-3">Scattered systems become coordinated operations.</h1>
+              </div>
+              <p class="hero-sub hero-sub-1">Local AI, workflow automation, and operational control begin as observation.</p>
+              <p class="hero-sub hero-sub-2">Then Raven Control turns that signal into action, routing, and oversight.</p>
+            </div>
+
+            <svg class="hero-raven" viewBox="0 0 1400 900" aria-hidden="true">
+              <g class="raven-perched">
+                <path class="raven-shape raven-body" d="M327 559c44-52 96-82 153-82 46 0 87 16 120 44 33 27 54 63 65 112l64 7-34 27-54-5c-4 36-18 65-42 89-34 33-80 50-137 50-54 0-102-13-145-38l33-63c-21-15-34-34-38-58-6-33 0-61 15-83z" />
+                <path class="raven-shape raven-head" d="M580 430c30-52 73-78 126-78 29 0 56 8 79 22 21 14 34 31 39 52l87 9-76 44-55-9c-8 28-28 53-60 74-27 17-56 26-87 26-37 0-69-8-94-24-30-19-44-46-43-82 1-12 4-23 8-34l-28-17 42-14c13 2 35 9 62 31z" />
+                <circle class="raven-eye" cx="722" cy="431" r="5" />
+                <path class="raven-leg" d="M484 760l-7 74" />
+                <path class="raven-leg" d="M548 758l9 74" />
+              </g>
+              <g class="raven-flight">
+                <path class="raven-wing raven-wing-left" d="M503 421c-131-101-244-139-337-116 54-65 126-98 216-99 91-2 173 39 246 123-28 23-70 54-125 92z" />
+                <path class="raven-wing raven-wing-right" d="M657 414c111-118 222-177 334-178-42-51-103-78-184-78-108 0-212 54-311 163 56 30 110 61 161 93z" />
+                <path class="raven-shape raven-flight-body" d="M450 504c53-71 121-109 204-109 58 0 109 17 151 48 43 32 66 72 73 121 7 47-5 86-35 117-31 31-74 47-131 47-73 0-141-20-206-60-66-41-100-89-100-145 0-6 1-12 3-19 11 1 24 1 41 0z" />
+                <circle class="raven-eye" cx="681" cy="487" r="5" />
+              </g>
+              <g class="flight-trails">
+                <path class="trail trail-1" d="M744 539C873 507 965 436 1045 356C1119 282 1194 248 1284 232" />
+                <path class="trail trail-2" d="M708 589C833 594 938 569 1052 511C1159 457 1248 438 1335 437" />
+                <path class="trail trail-3" d="M676 647C795 693 914 708 1039 690C1148 675 1237 684 1319 724" />
+              </g>
+            </svg>
           </div>
-          <div class="orbit orbit-a parallax-slow"></div>
-          <div class="orbit orbit-b parallax-fast"></div>
-          <div class="node node-a parallax-fast"></div>
-          <div class="node node-b parallax-slow"></div>
-          <div class="node node-c parallax-fast"></div>
-          <div class="flight-path flight-one"></div>
-          <div class="flight-path flight-two"></div>
-          <div class="hero-label hero-label-top">watchers</div>
-          <div class="hero-label hero-label-right">orchestration</div>
         </div>
       </section>
 
@@ -251,7 +269,7 @@
             businesses that need systems they can actually trust.
           </p>
           <div class="hero-actions reveal-item">
-            <a class="button button-primary" href="mailto:hello@ravencontrol.com">hello@ravencontrol.com</a>
+            <a class="button button-primary" href="mailto:akeemandrew@ravencontrol.com">akeemandrew@ravencontrol.com</a>
             <a class="button button-secondary" href="https://ravencontrol-site.pages.dev">Current live site</a>
           </div>
         </div>
