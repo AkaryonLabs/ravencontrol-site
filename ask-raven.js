@@ -6,7 +6,7 @@ const API_BASE =
   localStorage.getItem("RAVEN_API_URL") ||
   (location.hostname === "localhost" || location.hostname === "127.0.0.1"
     ? "http://127.0.0.1:8765"
-    : "https://raven-control-api.onrender.com");
+    : "https://ravencontrol-site.onrender.com");
 
 function setStatus(kind, message) {
   statusBox.className = `intake-status ${kind}`;
