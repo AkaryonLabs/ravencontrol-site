@@ -29,9 +29,15 @@ form.addEventListener("submit", async (event) => {
   const payload = Object.fromEntries(data.entries());
   payload.consent = data.get("consent") === "on";
   payload.api_provider = "claude";
+  payload.offer = "free_one_time_scam_check";
 
   if (!payload.consent) {
     setStatus("error", "Please check the consent box before sending.");
+    return;
+  }
+
+  if (!payload.email || !payload.phone) {
+    setStatus("error", "Please enter a real email and phone number for the free scam check.");
     return;
   }
 

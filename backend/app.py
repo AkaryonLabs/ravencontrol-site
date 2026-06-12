@@ -581,6 +581,7 @@ class Handler(BaseHTTPRequestHandler):
                 "phone": payload.get("phone", ""),
                 "who_needs_help": payload.get("who_needs_help", ""),
             },
+            "offer": payload.get("offer", "website_intake"),
             "channel": review_payload["channel"],
             "sender": claimed_sender,
             "subject": subject,
