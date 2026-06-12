@@ -1,283 +1,236 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Raven Control</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Raven Control | Digital Guardian Scam Protection</title>
     <meta
       name="description"
-      content="Raven Control designs AI automation, local systems, and operational command layers for businesses that need precise control."
+      content="Raven Control helps families, seniors, and small businesses verify suspicious messages before they click, pay, respond, or panic."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <script>
-      document.documentElement.classList.add("js");
-    </script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="page-noise" aria-hidden="true"></div>
-    <div class="page-grid" aria-hidden="true"></div>
-
-    <header class="site-header reveal-fade">
-      <div class="shell nav-shell">
-        <a class="brand" href="#top" aria-label="Raven Control home">
-          <span class="brand-mark"></span>
-          <span class="brand-text">Raven Control</span>
-        </a>
-        <nav class="site-nav">
-          <a href="#about">01 About</a>
-          <a href="#systems">02 Systems</a>
-          <a href="#outcomes">03 Outcomes</a>
-          <a href="#contact">04 Contact</a>
-        </nav>
-      </div>
+    <header class="site-header" aria-label="Primary">
+      <a class="brand" href="#top" aria-label="Raven Control home">
+        <span class="brand-mark">R</span>
+        <span>
+          <strong>Raven Control</strong>
+          <small>The AI remembers. The Guardian cares.</small>
+        </span>
+      </a>
+      <nav aria-label="Site navigation">
+        <a href="#families">Families</a>
+        <a href="#business">Business</a>
+        <a href="#plans">Plans</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="header-cta" href="ask-raven.html">Ask Raven</a>
     </header>
 
     <main id="top">
-      <section class="hero-film">
-        <div class="hero-film__sticky shell">
-          <div class="hero-film__scene">
-            <div class="hero-backdrop" aria-hidden="true">
-              <div class="screen-glow"></div>
-              <div class="screen-shell">
-                <div class="screen-reflection"></div>
-                <div class="screen-ui">
-                  <p class="ui-chip ui-chip-1">Local AI</p>
-                  <p class="ui-chip ui-chip-2">Workflow Automation</p>
-                  <p class="ui-chip ui-chip-3">Operational Control</p>
-                  <p class="ui-chip ui-chip-4">Monitoring</p>
-                  <div class="ui-graph ui-graph-1"></div>
-                  <div class="ui-graph ui-graph-2"></div>
-                  <div class="ui-node ui-node-1"></div>
-                  <div class="ui-node ui-node-2"></div>
-                  <div class="ui-node ui-node-3"></div>
-                </div>
-              </div>
-              <div class="perch"></div>
-            </div>
-
-            <div class="hero-copy">
-              <p class="eyebrow reveal-item">Raven Control / watching the system</p>
-              <div class="hero-headlines">
-                <h1 class="hero-title hero-title-1">The raven watches the screen.</h1>
-                <h1 class="hero-title hero-title-2">The signal sharpens.</h1>
-                <h1 class="hero-title hero-title-3">Scattered systems become coordinated operations.</h1>
-              </div>
-              <p class="hero-sub hero-sub-1">Local AI, workflow automation, and operational control begin as observation.</p>
-              <p class="hero-sub hero-sub-2">Then Raven Control turns that signal into action, routing, and oversight.</p>
-            </div>
-
-            <svg class="hero-raven" viewBox="0 0 1400 900" aria-hidden="true">
-              <g class="raven-perched">
-                <path class="raven-shape raven-body" d="M327 559c44-52 96-82 153-82 46 0 87 16 120 44 33 27 54 63 65 112l64 7-34 27-54-5c-4 36-18 65-42 89-34 33-80 50-137 50-54 0-102-13-145-38l33-63c-21-15-34-34-38-58-6-33 0-61 15-83z" />
-                <path class="raven-shape raven-head" d="M580 430c30-52 73-78 126-78 29 0 56 8 79 22 21 14 34 31 39 52l87 9-76 44-55-9c-8 28-28 53-60 74-27 17-56 26-87 26-37 0-69-8-94-24-30-19-44-46-43-82 1-12 4-23 8-34l-28-17 42-14c13 2 35 9 62 31z" />
-                <circle class="raven-eye" cx="722" cy="431" r="5" />
-                <path class="raven-leg" d="M484 760l-7 74" />
-                <path class="raven-leg" d="M548 758l9 74" />
-              </g>
-              <g class="raven-flight">
-                <path class="raven-wing raven-wing-left" d="M503 421c-131-101-244-139-337-116 54-65 126-98 216-99 91-2 173 39 246 123-28 23-70 54-125 92z" />
-                <path class="raven-wing raven-wing-right" d="M657 414c111-118 222-177 334-178-42-51-103-78-184-78-108 0-212 54-311 163 56 30 110 61 161 93z" />
-                <path class="raven-shape raven-flight-body" d="M450 504c53-71 121-109 204-109 58 0 109 17 151 48 43 32 66 72 73 121 7 47-5 86-35 117-31 31-74 47-131 47-73 0-141-20-206-60-66-41-100-89-100-145 0-6 1-12 3-19 11 1 24 1 41 0z" />
-                <circle class="raven-eye" cx="681" cy="487" r="5" />
-              </g>
-              <g class="flight-trails">
-                <path class="trail trail-1" d="M744 539C873 507 965 436 1045 356C1119 282 1194 248 1284 232" />
-                <path class="trail trail-2" d="M708 589C833 594 938 569 1052 511C1159 457 1248 438 1335 437" />
-                <path class="trail trail-3" d="M676 647C795 693 914 708 1039 690C1148 675 1237 684 1319 724" />
-              </g>
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" class="shell story-band section-block reveal-block">
-        <div class="section-intro reveal-sequence">
-          <p class="section-number reveal-item">01</p>
-          <div>
-            <p class="eyebrow reveal-item">Why Raven Control</p>
-            <h2 class="reveal-item">Scattered tools create expensive blind spots.</h2>
-          </div>
-        </div>
-        <div class="story-grid">
-          <p class="lead-copy reveal-fade">
-            Most teams do not have a technology problem. They have a coordination
-            problem. Tasks live in too many places. Alerts arrive too late. Valuable data
-            sits inside disconnected tools.
+      <section class="hero" aria-label="Raven Control overview">
+        <img src="assets/customer-desktop.png" alt="Raven Control customer dashboard" />
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Digital Guardian service for scams, fraud, and risky requests</p>
+          <h1>Raven Control</h1>
+          <p class="hero-copy">
+            Before you click, pay, respond, sign, share a code, or panic, send it to Raven.
+            Axiom reviews the risk. A human Guardian helps you decide safely.
           </p>
-          <div class="story-stack reveal-sequence">
-            <article class="story-card reveal-item">
-              <h3>Visibility</h3>
-              <p>
-                Put activity, exceptions, and key events into one operational view instead
-                of chasing updates across tabs and inboxes.
-              </p>
-            </article>
-            <article class="story-card reveal-item">
-              <h3>Control</h3>
-              <p>
-                Keep systems local when privacy, latency, or ownership matter. Automate
-                aggressively without giving up operator oversight.
-              </p>
-            </article>
-            <article class="story-card accent-card reveal-item">
-              <p class="quote-line">Raven Control turns scattered systems into coordinated operations.</p>
-            </article>
+          <div class="hero-actions">
+            <a class="primary-action" href="ask-raven.html">Send something suspicious</a>
+            <a class="secondary-action" href="#plans">View plans</a>
           </div>
         </div>
       </section>
 
-      <section id="systems" class="shell systems-block section-block reveal-block">
-        <div class="section-intro compact-intro reveal-sequence">
-          <p class="section-number reveal-item">02</p>
-          <div>
-            <p class="eyebrow reveal-item">System Design</p>
-            <h2 class="reveal-item">A scrollable command story, built for real operations.</h2>
-          </div>
-        </div>
-
-        <div class="systems-layout">
-          <aside class="systems-rail reveal-fade">
-            <div class="rail-card">
-              <p class="rail-title">Core services</p>
-              <ul>
-                <li>Local AI deployment</li>
-                <li>Workflow automation</li>
-                <li>Internal dashboards</li>
-                <li>Monitoring and alerting</li>
-              </ul>
-            </div>
-          </aside>
-
-          <div class="systems-panels reveal-sequence">
-            <article class="system-panel reveal-item">
-              <p class="panel-index">01</p>
-              <h3>Find the signal</h3>
-              <p>
-                We map where information enters, where decisions stall, and where manual
-                work keeps leaking time.
-              </p>
-            </article>
-            <article class="system-panel reveal-item">
-              <p class="panel-index">02</p>
-              <h3>Build the command layer</h3>
-              <p>
-                Then we connect automations, local models, and operator interfaces into a
-                system that can actually be managed.
-              </p>
-            </article>
-            <article class="system-panel reveal-item">
-              <p class="panel-index">03</p>
-              <h3>Keep a human in control</h3>
-              <p>
-                The result is not a black box. It is a controlled environment with
-                observability, override paths, and clean handoffs.
-              </p>
-            </article>
-          </div>
-        </div>
+      <section class="trust-bar" aria-label="Common risks Raven Control reviews">
+        <span>Bank texts</span>
+        <span>Fake invoices</span>
+        <span>Family emergency scams</span>
+        <span>Gift cards and crypto</span>
+        <span>Vendor payment changes</span>
       </section>
 
-      <section class="shell manifesto-block section-block pin-scene reveal-block">
-        <div class="pin-inner">
-          <p class="eyebrow reveal-fade">Operational philosophy</p>
-          <div class="manifesto-lines">
-            <p class="manifest-line">Boring systems fail quietly.</p>
-            <p class="manifest-line">Unreadable systems fail loudly.</p>
-            <p class="manifest-line">Controlled systems make action obvious.</p>
-          </div>
+      <section class="section intro">
+        <div class="section-kicker">What Raven does</div>
+        <div class="section-heading">
+          <h2>Protection before the mistake happens.</h2>
+          <p>
+            Raven Control gives people a calm second look when pressure, money, identity,
+            family, or account access is involved.
+          </p>
         </div>
-      </section>
-
-      <section id="outcomes" class="shell outcomes-block section-block reveal-block">
-        <div class="section-intro compact-intro reveal-sequence">
-          <p class="section-number reveal-item">03</p>
-          <div>
-            <p class="eyebrow reveal-item">Outcomes</p>
-            <h2 class="reveal-item">What a better operating system changes.</h2>
-          </div>
-        </div>
-
-        <div class="outcome-grid reveal-sequence">
-          <article class="outcome-card large-card reveal-item">
-            <p class="metric">01</p>
-            <h3>Faster responses</h3>
-            <p>
-              Critical events surface earlier, routine triage gets automated, and teams
-              stop burning time on repeat admin work.
-            </p>
-          </article>
-          <article class="outcome-card reveal-item">
-            <p class="metric">02</p>
-            <h3>Cleaner oversight</h3>
-            <p>
-              Dashboards, logs, and alerts become part of one system instead of separate
-              tools with partial truth.
-            </p>
-          </article>
-          <article class="outcome-card reveal-item">
-            <p class="metric">03</p>
-            <h3>Local leverage</h3>
-            <p>
-              Use local or private infrastructure where needed without losing modern AI
-              capability.
-            </p>
-          </article>
-          <article class="outcome-card wide-card reveal-item">
-            <p class="metric">04</p>
-            <h3>Less operational chaos</h3>
-            <p>
-              Raven Control is built for owners and operators who want one coordinated
-              layer over the moving parts, not another disconnected tool.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="shell use-case-block section-block reveal-block">
-        <div class="use-case-copy reveal-sequence">
-          <p class="eyebrow reveal-item">Use cases</p>
-          <h2 class="reveal-item">For teams managing real workflows, not demo environments.</h2>
-        </div>
-        <div class="use-case-list reveal-sequence">
-          <div class="use-case-item reveal-item">
+        <div class="workflow">
+          <article>
             <span>01</span>
-            <p>Route inquiries, updates, and internal events without manual handoffs.</p>
-          </div>
-          <div class="use-case-item reveal-item">
+            <h3>Forward it</h3>
+            <p>Send a suspicious email, text screenshot, invoice, voicemail, link, or message to your Raven address or app.</p>
+          </article>
+          <article>
             <span>02</span>
-            <p>Monitor local systems and surface exceptions before they become problems.</p>
-          </div>
-          <div class="use-case-item reveal-item">
+            <h3>Raven reviews</h3>
+            <p>Axiom checks urgency, threats, sender signals, links, payment pressure, and your trusted-contact rules.</p>
+          </article>
+          <article>
             <span>03</span>
-            <p>Give operators one place to review, approve, and override automation.</p>
-          </div>
+            <h3>Guardian responds</h3>
+            <p>You get a clear next step: ignore, verify officially, contact family, call the bank, or escalate for review.</p>
+          </article>
         </div>
       </section>
 
-      <section id="contact" class="shell contact-block section-block reveal-block">
-        <div class="contact-panel reveal-sequence">
-          <p class="eyebrow reveal-item">04 Contact</p>
-          <h2 class="reveal-item">Build a calmer system with more control.</h2>
-          <p class="reveal-item">
-            Raven Control designs premium automation and local AI infrastructure for
-            businesses that need systems they can actually trust.
+      <section class="section split" id="families">
+        <div class="split-copy">
+          <div class="section-kicker">For families and seniors</div>
+          <h2>A trusted pause button for Mom, Dad, and the whole family.</h2>
+          <p>
+            Raven helps adult children protect parents without taking away independence.
+            Seniors get a Guardian relationship. Families get alerts when a request involves
+            money, access, secrecy, or emotional pressure.
           </p>
-          <div class="hero-actions reveal-item">
-            <a class="button button-primary" href="mailto:akeemandrew@ravencontrol.com">akeemandrew@ravencontrol.com</a>
-            <a class="button button-secondary" href="https://ravencontrol-site.pages.dev">Current live site</a>
+          <div class="rule-list">
+            <div><strong>Family Shield</strong><span>Up to five family members with shared alerts and trusted-contact rules.</span></div>
+            <div><strong>Companion</strong><span>Weekly check-ins, family updates, and higher-touch support for vulnerable adults.</span></div>
+            <div><strong>Family + Companion</strong><span>Household protection plus dedicated support for one parent or loved one.</span></div>
           </div>
         </div>
+        <figure class="phone-frame">
+          <img src="assets/customer-phone.png" alt="Raven Control mobile app home screen" />
+        </figure>
+      </section>
+
+      <section class="section business-band" id="business">
+        <div>
+          <div class="section-kicker">For small businesses</div>
+          <h2>Verify payment requests before money moves.</h2>
+        </div>
+        <div class="business-grid">
+          <article>
+            <h3>Invoice fraud</h3>
+            <p>Check unfamiliar bills, fake receipts, overdue notices, and payment pressure.</p>
+          </article>
+          <article>
+            <h3>Vendor changes</h3>
+            <p>Pause bank-account changes until the supplier is verified through a known channel.</p>
+          </article>
+          <article>
+            <h3>Staff requests</h3>
+            <p>Catch fake owner texts, payroll changes, gift-card requests, and password resets.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section network">
+        <div class="network-copy">
+          <div class="section-kicker">Guardian network</div>
+          <h2>Axiom remembers. Guardians care.</h2>
+          <p>
+            The AI keeps history organized: trusted contacts, past scams, check-in notes,
+            risky patterns, and open issues. Guardians bring judgment, reassurance, and escalation.
+          </p>
+        </div>
+        <img src="assets/axiom-memory.png" alt="Axiom Memory dashboard showing client context, trusted contacts, risk history, protection rules, and next Guardian action" />
+      </section>
+
+      <section class="section plans" id="plans">
+        <div class="section-heading">
+          <div class="section-kicker">Plans</div>
+          <h2>Start small. Add care when risk grows.</h2>
+        </div>
+        <div class="plan-grid">
+          <article class="plan">
+            <h3>Verify</h3>
+            <p class="price">$19<span>/mo</span></p>
+            <p>Basic scam and request verification for one person.</p>
+          </article>
+          <article class="plan featured">
+            <h3>Shield</h3>
+            <p class="price">$49<span>/mo</span></p>
+            <p>Ongoing protection, Raven address, alerts, case history, and Guardian review.</p>
+          </article>
+          <article class="plan">
+            <h3>Family Shield</h3>
+            <p class="price">$99<span>/mo</span></p>
+            <p>Protection for up to five family members with shared alert rules.</p>
+          </article>
+          <article class="plan">
+            <h3>Companion</h3>
+            <p class="price">$199<span>/mo</span></p>
+            <p>Weekly Guardian support for a senior or vulnerable adult.</p>
+          </article>
+          <article class="plan">
+            <h3>Family + Companion</h3>
+            <p class="price">$279<span>/mo</span></p>
+            <p>Family Shield plus dedicated Companion support for one parent.</p>
+          </article>
+          <article class="plan">
+            <h3>Business Shield</h3>
+            <p class="price">$149<span>/mo</span></p>
+            <p>Small-business protection against fake invoices and payment scams.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section consultation">
+        <div>
+          <div class="section-kicker">Serious fraud consultation</div>
+          <h2>When the problem is already serious, Raven helps organize the next step.</h2>
+          <p>
+            For major losses, romance scams, elder exploitation, business fraud, identity theft,
+            or family crisis situations, Raven can help organize evidence, build a timeline,
+            prepare questions, and connect clients with independent professionals when needed.
+          </p>
+        </div>
+        <div class="notice">
+          Raven Control is not a law firm, bank, or law enforcement agency. Legal and financial
+          services are provided separately by licensed professionals when appropriate.
+        </div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div class="contact-copy">
+          <div class="section-kicker">Early access</div>
+          <h2>Start with one suspicious message.</h2>
+          <p>
+            Send a note and Raven Control will help you set up the first verification flow for
+            yourself, your family, or your business.
+          </p>
+        </div>
+        <form class="contact-form" action="mailto:verify@ravencontrol.com" method="post" enctype="text/plain">
+          <label>
+            Name
+            <input name="name" autocomplete="name" required />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            What do you need protected?
+            <select name="plan_interest">
+              <option>Myself</option>
+              <option>My parent or loved one</option>
+              <option>My family</option>
+              <option>My business</option>
+              <option>A serious fraud problem</option>
+            </select>
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" placeholder="Tell us what happened or what you want Raven to help verify."></textarea>
+          </label>
+          <button type="submit">Send To Raven</button>
+        </form>
       </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+    <footer>
+      <strong>Raven Control</strong>
+      <span>The AI remembers. The Guardian cares.</span>
+      <a href="mailto:verify@ravencontrol.com">verify@ravencontrol.com</a>
+    </footer>
   </body>
 </html>

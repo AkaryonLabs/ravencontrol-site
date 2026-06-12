@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ask Raven | Raven Control</title>
+    <meta
+      name="description"
+      content="Send a suspicious message, email, invoice, call, or request to Raven Control for review."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="intake-page">
+    <header class="site-header" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Raven Control home">
+        <span class="brand-mark">R</span>
+        <span>
+          <strong>Raven Control</strong>
+          <small>The AI remembers. The Guardian cares.</small>
+        </span>
+      </a>
+      <nav aria-label="Site navigation">
+        <a href="index.html#families">Families</a>
+        <a href="index.html#business">Business</a>
+        <a href="index.html#plans">Plans</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <a class="header-cta" href="mailto:verify@ravencontrol.com">verify@ravencontrol.com</a>
+    </header>
+
+    <main>
+      <section class="intake-hero">
+        <div>
+          <p class="eyebrow">Ask Raven</p>
+          <h1>Send us what feels suspicious.</h1>
+          <p>
+            Paste the message, describe the call, or explain the request. Raven Control will help
+            you slow down, verify, and decide safely.
+          </p>
+        </div>
+        <aside class="pause-card">
+          <strong>Pause first</strong>
+          <span>Do not click links, pay, reply, share codes, or install anything until the request is verified.</span>
+        </aside>
+      </section>
+
+      <section class="intake-layout">
+        <form id="askRavenForm" class="intake-form" action="mailto:verify@ravencontrol.com" method="post" enctype="text/plain">
+          <div class="form-section">
+            <h2>Your Information</h2>
+            <div class="form-two">
+              <label>
+                Full name
+                <input name="name" autocomplete="name" required />
+              </label>
+              <label>
+                Email
+                <input name="email" type="email" autocomplete="email" required />
+              </label>
+            </div>
+            <div class="form-two">
+              <label>
+                Phone
+                <input name="phone" autocomplete="tel" />
+              </label>
+              <label>
+                Who needs help?
+                <select name="who_needs_help">
+                  <option>Me</option>
+                  <option>My parent or loved one</option>
+                  <option>My family</option>
+                  <option>My business</option>
+                  <option>A serious fraud situation</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Suspicious Item</h2>
+            <div class="form-two">
+              <label>
+                What type of item is this?
+                <select name="item_type">
+                  <option>Text message</option>
+                  <option>Email</option>
+                  <option>Phone call</option>
+                  <option>Invoice or payment request</option>
+                  <option>Social media message</option>
+                  <option>Website or link</option>
+                  <option>Other</option>
+                </select>
+              </label>
+              <label>
+                Who is claiming to contact you?
+                <input name="claimed_sender" placeholder="Bank, family member, vendor, police, Microsoft..." />
+              </label>
+            </div>
+            <label>
+              Paste the suspicious message or describe what happened
+              <textarea
+                name="suspicious_message"
+                rows="9"
+                placeholder="Paste the text, email, invoice details, phone call notes, or request here."
+                required
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="form-section">
+            <h2>Risk Signals</h2>
+            <div class="form-three">
+              <label>
+                Asking for money?
+                <select name="asking_money">
+                  <option>No</option>
+                  <option>Yes</option>
+                  <option>Not sure</option>
+                </select>
+              </label>
+              <label>
+                Asking for login, code, or access?
+                <select name="asking_access">
+                  <option>No</option>
+                  <option>Yes</option>
+                  <option>Not sure</option>
+                </select>
+              </label>
+              <label>
+                How urgent does it feel?
+                <select name="urgency">
+                  <option>Low</option>
+                  <option>Medium</option>
+                  <option>High</option>
+                  <option>Critical</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Have you already responded or paid?
+              <select name="already_acted">
+                <option>No</option>
+                <option>Replied only</option>
+                <option>Shared personal information</option>
+                <option>Shared login/code/access</option>
+                <option>Sent money</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="consent-line">
+            <input type="checkbox" name="consent" required />
+            <span>
+              I understand Raven Control can review this submission and respond by email or phone.
+              Raven Control does not provide legal, financial, banking, medical, or law enforcement services.
+            </span>
+          </label>
+
+          <button type="submit">Send To Raven</button>
+          <div id="intakeStatus" class="intake-status" role="status" aria-live="polite"></div>
+        </form>
+
+        <aside class="intake-side">
+          <article>
+            <h3>What happens next</h3>
+            <ol>
+              <li>Raven receives your submission.</li>
+              <li>Axiom checks for red flags and risk patterns.</li>
+              <li>A Guardian sends a safe next step.</li>
+            </ol>
+          </article>
+          <article>
+            <h3>Send directly</h3>
+            <p>You can also email suspicious items to:</p>
+            <a href="mailto:verify@ravencontrol.com">verify@ravencontrol.com</a>
+          </article>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <strong>Raven Control</strong>
+      <span>The AI remembers. The Guardian cares.</span>
+      <a href="mailto:verify@ravencontrol.com">verify@ravencontrol.com</a>
+    </footer>
+    <script src="ask-raven.js"></script>
+  </body>
+</html>
