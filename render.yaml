@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: raven-control-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    healthCheckPath: /api/health
+    envVars:
+      - key: RAVEN_CLAUDE_MODEL
+        value: claude-haiku-4-5
+      - key: ANTHROPIC_API_KEY
+        sync: false

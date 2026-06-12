@@ -6,6 +6,9 @@ Simple static HTML/CSS starter for `ravencontrol.com`.
 
 - `index.html`
 - `style.css`
+- `ask-raven.html`
+- `ask-raven.js`
+- `backend/` for the Render API service
 
 ## Preview locally
 
@@ -27,3 +30,8 @@ Then visit: <http://localhost:8080>
 - add logo / favicon
 - add pricing, portfolio, or intake form
 - deploy to Cloudflare Pages, Netlify, GitHub Pages, or your own server
+
+## Backend
+
+Deploy `backend/` to Render as a Python Web Service. See
+`backend/README.md`.

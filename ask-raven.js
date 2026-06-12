@@ -4,7 +4,9 @@ const statusBox = document.querySelector("#intakeStatus");
 const API_BASE =
   window.RAVEN_API_URL ||
   localStorage.getItem("RAVEN_API_URL") ||
-  "http://127.0.0.1:8765";
+  (location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:8765"
+    : "https://raven-control-api.onrender.com");
 
 function setStatus(kind, message) {
   statusBox.className = `intake-status ${kind}`;

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Raven Control MVP</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="mark">R</div>
+        <div>
+          <strong>Raven Control</strong>
+          <span>The AI remembers. The Guardian cares.</span>
+        </div>
+      </div>
+      <nav>
+        <a class="active" href="#review">Review</a>
+        <a href="#cases">Cases</a>
+        <a href="#case-detail">Case Detail</a>
+        <a href="#clients">Clients</a>
+        <a href="#templates">Templates</a>
+      </nav>
+      <div class="status-card">
+        <span class="dot"></span>
+        <div>
+          <strong>API-first MVP</strong>
+          <p>Rules engine works now. Claude review turns on with your Anthropic key.</p>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <h1>Guardian Console</h1>
+          <p>Forwarded-item review, risk scoring, customer response, and case history.</p>
+        </div>
+        <button id="refreshBtn" class="icon-btn" title="Refresh">↻</button>
+      </header>
+
+      <section id="review" class="panel review-grid">
+        <div>
+          <div class="section-title">
+            <h2>New Verification Request</h2>
+            <span>Forwarded email, text, invoice, DM, or call note</span>
+          </div>
+
+          <form id="reviewForm">
+            <label>
+              Client
+              <select id="clientSelect" name="client_id"></select>
+            </label>
+            <div class="two">
+              <label>
+                Channel
+                <select name="channel">
+                  <option>Forwarded email</option>
+                  <option>Text screenshot</option>
+                  <option>Phone call note</option>
+                  <option>Invoice</option>
+                  <option>Social DM</option>
+                  <option>App upload</option>
+                </select>
+              </label>
+              <label>
+                Sender / claimed sender
+                <input name="sender" placeholder="Adam from Chase Bank" />
+              </label>
+            </div>
+            <label>
+              Subject
+              <input name="subject" placeholder="Final notice / account alert / invoice change" />
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="8" placeholder="Paste the suspicious message here..."></textarea>
+            </label>
+            <div class="form-actions">
+              <label>
+                Review mode
+                <select name="api_provider">
+                  <option value="rules">Rules only</option>
+                  <option value="claude" selected>Claude API</option>
+                  <option value="openai">OpenAI API</option>
+                </select>
+              </label>
+              <button type="submit">Review Item</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="result-panel" id="resultPanel">
+          <div class="empty-state">
+            <strong>No review yet</strong>
+            <p>Paste a suspicious item and Raven will classify the risk, bucket, red flags, and response.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="cases" class="panel">
+        <div class="section-title">
+          <h2>Case Queue</h2>
+          <span>Received → Auto Reviewed → Needs Guardian → Waiting on Client → Escalated → Resolved</span>
+        </div>
+        <div id="caseList" class="case-list"></div>
+      </section>
+
+      <section id="case-detail" class="panel">
+        <div class="section-title">
+          <h2>Guardian Review Sheet</h2>
+          <span>Open a case, make the final call, and record what was sent.</span>
+        </div>
+        <div id="caseDetail" class="case-detail empty-state">
+          <strong>No case selected</strong>
+          <p>Select a case from the queue to review it.</p>
+        </div>
+      </section>
+
+      <section id="clients" class="panel">
+        <div class="section-title">
+          <h2>Clients</h2>
+          <span>Raven forwarding addresses and pause rules</span>
+        </div>
+        <div id="clientList" class="client-list"></div>
+      </section>
+
+      <section id="templates" class="panel">
+        <div class="section-title">
+          <h2>Response Templates</h2>
+          <span>Short messages for email, app, push, and text</span>
+        </div>
+        <div class="templates">
+          <article>
+            <h3>Received</h3>
+            <p>Raven received your item. We are reviewing it now. Do not click, pay, reply, share codes, or open attachments until you receive guidance.</p>
+          </article>
+          <article>
+            <h3>High Risk</h3>
+            <p>Raven Alert: High-risk message detected. Do not click, pay, reply, share codes, or call numbers from this message. A Guardian is reviewing it now.</p>
+          </article>
+          <article>
+            <h3>Verify Officially</h3>
+            <p>Use only a known official app, website, saved contact, or number from your card/bill. Do not use contact details inside the suspicious message.</p>
+          </article>
+          <article>
+            <h3>Family Alert</h3>
+            <p>Raven flagged a high-risk request involving money, access, or urgency. Please help verify through a trusted channel before any action is taken.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
