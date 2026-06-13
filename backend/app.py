@@ -651,7 +651,7 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 # Serve Guardian console from backend/public
                 self.send_file(ROOT / "public" / "index.html", "text/html")
-        elif self.path == "/styles.css":
+        elif self.path == "/styles.css" or self.path.startswith("/style.css"):
             if is_customer_site:
                 self.send_file(ROOT.parent / "style.css", "text/css")
             else:
