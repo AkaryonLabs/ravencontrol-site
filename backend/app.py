@@ -296,13 +296,13 @@ def rules_review(payload, client=None):
 
 def build_customer_response(risk, flags, safe_path):
     if risk in {"High", "Critical"}:
-        opener = f"Raven Alert: preliminary risk is {risk}. Do not act yet."
+        opener = f"Raven Alert: preliminary risk is {risk}. Stop and do not act on this request yet."
     elif risk == "Medium":
-        opener = "Raven received your item. Preliminary risk is Medium, so please pause before responding."
+        opener = "Raven received your item. Preliminary risk is Medium. Pause before responding."
     else:
-        opener = "Raven received your item. Preliminary risk is Low, but keep verifying before any money or account access is involved."
+        opener = "Raven received your item. Preliminary risk is Low, but still verify before money, account access, links, or codes are involved."
     flag_text = ", ".join(flags) if flags else "no major red flags detected"
-    return f"{opener} We noticed: {flag_text}. {safe_path}"
+    return f"{opener} We noticed: {flag_text}. {safe_path} Use only a known official app, website, saved contact, or number from your card or bill."
 
 
 def review_prompt(payload, rules, client=None):
@@ -521,13 +521,19 @@ def send_intake_emails(case, payload):
     console_url = os.environ.get("RAVEN_CONSOLE_URL", "https://ravencontrol-site.onrender.com")
     reply_to = os.environ.get("RAVEN_REPLY_TO", "verify@ravencontrol.com")
 
-    internal_subject = f"New Raven intake: {review.get('risk', 'Needs review')} - {case.get('subject', '')}"
+    internal_subject = f"Raven intake: {review.get('risk', 'Needs review')} - {case.get('client_name', '')}"
+    flags = ", ".join(review.get("red_flags", [])) or "None detected"
+    amounts = ", ".join(review.get("amounts", [])) or "None detected"
+    links = ", ".join(review.get("links", [])) or "None detected"
     internal_text = f"""New Raven Control intake received.
 
 Case ID: {case.get('id')}
 Risk: {review.get('risk')}
 Bucket: {review.get('fraud_bucket')}
 Status: {case.get('status')}
+Red flags: {flags}
+Amounts: {amounts}
+Links: {links}
 
 Name: {case.get('client_name')}
 Email: {customer_email}
@@ -542,6 +548,12 @@ Message:
 Recommended response:
 {review.get('customer_response', '')}
 
+Guardian next steps:
+1. Confirm the risk level and final decision.
+2. If money, account access, codes, or remote access are involved, keep the client paused.
+3. Tell the client to verify only through an official app, known website, saved contact, or number from a card/bill.
+4. Escalate to family contact or fraud specialist if loss, access, or ongoing pressure is present.
+
 Guardian Console:
 {console_url}
 """
@@ -554,21 +566,25 @@ Guardian Console:
 
     customer_result = {"skipped": True, "reason": "customer email missing"}
     if customer_email:
-        customer_subject = "Raven received your scam check"
+        customer_subject = f"Raven received your scam check: {review.get('risk')} risk"
         customer_text = f"""Raven Control received your scam check.
 
 Preliminary risk: {review.get('risk')}
+Fraud category: {review.get('fraud_bucket')}
 
-Please do not click links, send money, reply, share codes, open attachments, install software, or call numbers from the suspicious message until it is reviewed.
+For now, pause. Do not click links, send money, reply, share codes, open attachments, install software, allow remote access, or call numbers from the suspicious message.
 
-Initial guidance:
+Raven's initial guidance:
 {review.get('customer_response', '')}
 
-A Guardian will follow up as soon as possible.
+Safe verification path:
+{review.get('safe_verification_path', '')}
 
-If money has already been sent, an account was accessed, or someone is pressuring you right now, reply with URGENT in the subject line.
+If money has already been sent, account access was shared, a code was given, or someone is pressuring you right now, contact your bank or account provider directly using the official app, website, card number, or saved trusted contact. You can also reply to this email with URGENT.
 
-Raven Control helps organize, verify, and escalate suspicious requests. Raven Control does not provide legal, financial, banking, medical, or law enforcement services.
+A Guardian may follow up if this needs a closer look.
+
+Raven Control helps organize, verify, and escalate suspicious requests. Raven Control is not a law firm, bank, financial advisor, medical provider, or law enforcement agency.
 
 The AI remembers. The Guardian cares.
 """

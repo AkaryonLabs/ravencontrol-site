@@ -57,7 +57,7 @@ form.addEventListener("submit", async (event) => {
     const result = await response.json();
     setStatus(
       "success",
-      `Received. Case ${result.case_id} is ${result.risk} risk. ${result.customer_response}`
+      `Received. Check your email for Raven's safety response. Case ${result.case_id} is ${result.risk} risk.`
     );
     form.reset();
   } catch (error) {
