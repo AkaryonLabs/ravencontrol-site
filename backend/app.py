@@ -663,6 +663,9 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_file(ROOT / "public" / "app.js", "application/javascript")
         elif self.path == "/ask-raven.html":
             self.send_file(ROOT.parent / "ask-raven.html", "text/html")
+        elif self.path == "/ask-raven.js":
+            # Customer scam check JavaScript
+            self.send_file(ROOT.parent / "ask-raven.js", "application/javascript")
         elif self.path.startswith("/assets/"):
             # Serve customer assets
             asset_path = ROOT.parent / self.path.lstrip("/")
