@@ -35,10 +35,32 @@
       <header class="topbar">
         <div>
           <h1>Guardian Console</h1>
-          <p>Forwarded-item review, risk scoring, customer response, and case history.</p>
+          <p>Case queue, Guardian decisions, customer responses, and escalation tracking.</p>
         </div>
-        <button id="refreshBtn" class="icon-btn" title="Refresh">↻</button>
+        <div class="top-actions">
+          <button id="openNewestBtn" class="secondary-btn" type="button">Open Newest</button>
+          <button id="refreshBtn" class="icon-btn" title="Refresh" type="button">↻</button>
+        </div>
       </header>
+
+      <section class="ops-strip" aria-label="Case summary">
+        <article>
+          <span>Open Cases</span>
+          <strong id="openCaseCount">0</strong>
+        </article>
+        <article>
+          <span>Needs Guardian</span>
+          <strong id="needsGuardianCount">0</strong>
+        </article>
+        <article>
+          <span>High/Critical</span>
+          <strong id="highRiskCount">0</strong>
+        </article>
+        <article>
+          <span>Email Delivery</span>
+          <strong id="deliveryHealth">Ready</strong>
+        </article>
+      </section>
 
       <section id="review" class="panel review-grid">
         <div>
@@ -138,11 +160,11 @@
           </article>
           <article>
             <h3>High Risk</h3>
-          <p>Raven Alert: High-risk message detected. Stop and do not act on this request yet. Do not click, pay, reply, share codes, install software, or call numbers from the message.</p>
+            <p>Raven Alert: High-risk message detected. Stop and do not act on this request yet. Do not click, pay, reply, share codes, install software, or call numbers from the message.</p>
           </article>
           <article>
             <h3>Verify Officially</h3>
-          <p>Use only a known official app, website, saved contact, or number from your card or bill. Do not use contact details inside the suspicious message.</p>
+            <p>Use only a known official app, website, saved contact, or number from your card or bill. Do not use contact details inside the suspicious message.</p>
           </article>
           <article>
             <h3>Family Alert</h3>
