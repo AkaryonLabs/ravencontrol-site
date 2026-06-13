@@ -1,15 +1,15 @@
 :root {
-  --ink: #10151d;
-  --text: #253044;
-  --muted: #657386;
-  --line: #d9e1ea;
-  --soft: #f5f7fa;
+  --ink: #07111f;
+  --text: #223047;
+  --muted: #66758a;
+  --line: #d7e0ea;
+  --soft: #f4f7fb;
   --white: #ffffff;
-  --red: #c5161d;
-  --red-dark: #8f1118;
-  --blue: #155eb7;
-  --green: #177245;
-  --gold: #c9892b;
+  --red: #d79b2f; /* SataGuard warning amber, not panic red */
+  --red-dark: #a66f18;
+  --blue: #27a8ff;
+  --green: #147a4d;
+  --gold: #d8aa4f;
   --shadow: 0 18px 54px rgba(17, 24, 39, 0.12);
   --shadow-sm: 0 2px 8px rgba(17, 24, 39, 0.08);
   --shadow-md: 0 8px 24px rgba(17, 24, 39, 0.12);

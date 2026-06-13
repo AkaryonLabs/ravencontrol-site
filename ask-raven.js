@@ -22,7 +22,7 @@ function buildMailto(payload) {
     .map(([key, value]) => `${key}: ${value}`)
     .join("\n");
   return `mailto:verify@ravencontrol.com?subject=${encodeURIComponent(
-    "Ask Raven intake"
+    "SataCheck intake"
   )}&body=${encodeURIComponent(body)}`;
 }
 
@@ -121,7 +121,7 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  setStatus("pending", "Sending to Raven...");
+  setStatus("pending", "Sending to SataGuard...");
 
   try {
     const response = await fetch(`${API_BASE}/api/public-intake`, {
@@ -131,13 +131,13 @@ form.addEventListener("submit", async (event) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Raven backend returned ${response.status}`);
+      throw new Error(`SataGuard backend returned ${response.status}`);
     }
 
     const result = await response.json();
     setStatus(
       "success",
-      `Received. Check your email for Raven's safety response. Case ${result.case_id} is ${result.risk} risk.`
+      `Received. Check your email for SataGuard's safety response. Case ${result.case_id} is ${result.risk} risk.`
     );
     form.reset();
     filePreview.innerHTML = "";
@@ -145,7 +145,7 @@ form.addEventListener("submit", async (event) => {
   } catch (error) {
     setStatus(
       "error",
-      "The Raven case system is not online right now. Opening email fallback..."
+      "The SataGuard case system is not online right now. Opening email fallback..."
     );
     window.location.href = buildMailto(payload);
   }
