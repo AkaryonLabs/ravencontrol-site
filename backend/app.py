@@ -679,9 +679,9 @@ class Handler(BaseHTTPRequestHandler):
         # Remove query string from path for matching
         path_only = self.path.split("?")[0]
         
-        if path_only == "/" or path_only == "":
+        if path_only == "/" or path_only == "" or path_only == "/index.html":
             if is_customer_site:
-                # Serve customer site from root
+                # Serve customer-facing SataGuard site from project root
                 self.send_file(ROOT.parent / "index.html", "text/html")
             else:
                 # Serve Guardian console from backend/public
