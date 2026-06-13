@@ -353,6 +353,8 @@ def openai_review(payload, rules, client=None):
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": "RavenControl/1.0 (https://ravencontrol.com)",
         },
         method="POST",
     )
@@ -492,6 +494,8 @@ def resend_email(to, subject, text_body, html_body=None, reply_to=None):
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": "RavenControl/1.0 (https://ravencontrol.com)",
         },
         method="POST",
     )
