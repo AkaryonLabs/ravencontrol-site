@@ -755,3 +755,226 @@ footer a {
     padding: 54px 18px;
   }
 }
+
+/* ====== ENHANCED FORM STYLING ====== */
+
+/* Form inputs enhancement */
+input,
+select,
+textarea {
+  border-width: 1.5px;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(21, 94, 183, 0.1);
+  background: #fafbfc;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+
+textarea {
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+/* Button enhancement */
+button {
+  min-height: 54px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 16px rgba(197, 22, 29, 0.25);
+  transition: all 0.3s ease;
+  margin-top: 8px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(197, 22, 29, 0.35);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Intake form sections enhancement */
+.form-section {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(17, 24, 39, 0.05);
+}
+
+.form-section h2 {
+  color: var(--ink);
+  font-size: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f3f7;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  gap: 8px;
+}
+
+.consent-line {
+  background: linear-gradient(135deg, rgba(197, 22, 29, 0.02), rgba(21, 94, 183, 0.02));
+  border: 1.5px solid rgba(197, 22, 29, 0.15);
+  border-radius: 12px;
+  padding: 18px;
+  transition: all 0.2s ease;
+}
+
+.consent-line:hover {
+  border-color: rgba(197, 22, 29, 0.25);
+  box-shadow: 0 2px 8px rgba(197, 22, 29, 0.08);
+}
+
+.consent-line input {
+  width: auto;
+  cursor: pointer;
+}
+
+.intake-status {
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-weight: 500;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.intake-status.success {
+  background: linear-gradient(135deg, #edf9f2, #f0fdf4);
+  border: 1.5px solid #bfe5cf;
+  color: #0f5132;
+}
+
+.intake-status.error {
+  background: linear-gradient(135deg, #fff1f2, #ffe4e6);
+  border: 1.5px solid #f7c6c9;
+  color: #842029;
+}
+
+.intake-status.pending {
+  background: linear-gradient(135deg, #eef2f7, #f3f6fb);
+  border: 1.5px solid var(--line);
+  color: #253044;
+}
+
+/* Intake side panels */
+.intake-side article {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(17, 24, 39, 0.05);
+  transition: all 0.3s ease;
+}
+
+.intake-side article:hover {
+  border-color: rgba(197, 22, 29, 0.2);
+  box-shadow: 0 8px 24px rgba(197, 22, 29, 0.1);
+}
+
+.intake-side h3 {
+  color: var(--ink);
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+.intake-side ol,
+.intake-side p {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.intake-side ol {
+  padding-left: 24px;
+}
+
+.intake-side ol li {
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.intake-side p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.intake-side a {
+  color: var(--red);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.intake-side a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Pause card enhancement */
+.pause-card {
+  background: linear-gradient(135deg, rgba(197, 22, 29, 0.04), rgba(197, 22, 29, 0.02));
+  border: 1.5px solid rgba(197, 22, 29, 0.15);
+  border-left-width: 6px;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.pause-card strong {
+  color: var(--ink);
+  font-size: 18px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .form-section,
+  .intake-side article {
+    padding: 20px;
+  }
+
+  .form-section h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
+
+  button {
+    min-height: 50px;
+    font-size: 15px;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+}
