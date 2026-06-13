@@ -331,11 +331,11 @@ def rules_review(payload, client=None):
 
 def build_customer_response(risk, flags, safe_path):
     if risk in {"High", "Critical"}:
-        opener = f"Raven Alert: preliminary risk is {risk}. Stop and do not act on this request yet."
+        opener = f"SataGuard Alert: preliminary risk is {risk}. Pause and do not act on this request yet."
     elif risk == "Medium":
-        opener = "Raven received your item. Preliminary risk is Medium. Pause before responding."
+        opener = "SataGuard received your item. Preliminary risk is Medium. Pause before responding."
     else:
-        opener = "Raven received your item. Preliminary risk is Low, but still verify before money, account access, links, or codes are involved."
+        opener = "SataGuard received your item. Preliminary risk is Low, but still verify before money, account access, links, or codes are involved."
     flag_text = ", ".join(flags) if flags else "no major red flags detected"
     return f"{opener} We noticed: {flag_text}. {safe_path} Use only a known official app, website, saved contact, or number from your card or bill."
 
@@ -360,7 +360,7 @@ def review_prompt(payload, rules, client=None):
 
 def axiom_system_prompt():
     return (
-        "You are Axiom for Raven Control. Review suspicious customer-submitted items. "
+        "You are SataGuard AI triage. Review suspicious customer-submitted items. "
         "Be cautious, calm, practical, and non-shaming. Do not provide legal, financial, "
         "banking, medical, or law-enforcement advice. Return JSON only with the requested keys."
     )
@@ -581,11 +581,11 @@ def send_intake_emails(case, payload):
     console_url = os.environ.get("RAVEN_CONSOLE_URL", "https://ravencontrol-site.onrender.com")
     reply_to = os.environ.get("RAVEN_REPLY_TO", "verify@ravencontrol.com")
 
-    internal_subject = f"Raven intake: {review.get('risk', 'Needs review')} - {case.get('client_name', '')}"
+    internal_subject = f"SataGuard intake: {review.get('risk', 'Needs review')} - {case.get('client_name', '')}"
     flags = ", ".join(review.get("red_flags", [])) or "None detected"
     amounts = ", ".join(review.get("amounts", [])) or "None detected"
     links = ", ".join(review.get("links", [])) or "None detected"
-    internal_text = f"""New Raven Control intake received.
+    internal_text = f"""New SataGuard intake received.
 
 Case ID: {case.get('id')}
 Risk: {review.get('risk')}
@@ -626,15 +626,15 @@ Guardian Console:
 
     customer_result = {"skipped": True, "reason": "customer email missing"}
     if customer_email:
-        customer_subject = f"Raven received your scam check: {review.get('risk')} risk"
-        customer_text = f"""Raven Control received your scam check.
+        customer_subject = f"SataGuard received your SataCheck: {review.get('risk')} risk"
+        customer_text = f"""SataGuard received your SataCheck.
 
 Preliminary risk: {review.get('risk')}
 Fraud category: {review.get('fraud_bucket')}
 
 For now, pause. Do not click links, send money, reply, share codes, open attachments, install software, allow remote access, or call numbers from the suspicious message.
 
-Raven's initial guidance:
+SataGuard's initial guidance:
 {review.get('customer_response', '')}
 
 Safe verification path:
@@ -644,7 +644,7 @@ If money has already been sent, account access was shared, a code was given, or 
 
 A Guardian may follow up if this needs a closer look.
 
-Raven Control helps organize, verify, and escalate suspicious requests. Raven Control is not a law firm, bank, financial advisor, medical provider, or law enforcement agency.
+SataGuard helps organize, verify, and escalate suspicious requests. SataGuard is not a law firm, bank, financial advisor, medical provider, or law enforcement agency.
 
 The AI remembers. The Guardian cares.
 """
@@ -788,7 +788,7 @@ class Handler(BaseHTTPRequestHandler):
         ]
         review_payload = {
             "client_id": None,
-            "channel": f"Ask Raven - {item_type}",
+            "channel": f"SataCheck - {item_type}",
             "sender": claimed_sender,
             "subject": subject,
             "message": "\n".join(message_parts).strip(),
