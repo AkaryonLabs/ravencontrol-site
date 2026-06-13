@@ -11,3 +11,13 @@ services:
         value: claude-haiku-4-5
       - key: ANTHROPIC_API_KEY
         sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RAVEN_NOTIFY_EMAIL
+        value: akeemandrew@ravencontrol.com
+      - key: RAVEN_FROM_EMAIL
+        value: Raven Control <alerts@send.ravencontrol.com>
+      - key: RAVEN_REPLY_TO
+        value: verify@ravencontrol.com
+      - key: RAVEN_CONSOLE_URL
+        value: https://ravencontrol-site.onrender.com

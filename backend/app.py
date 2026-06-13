@@ -469,6 +469,107 @@ def merge_reviews(rules, ai):
     return merged
 
 
+def resend_email(to, subject, text_body, html_body=None, reply_to=None):
+    api_key = os.environ.get("RESEND_API_KEY")
+    if not api_key:
+        return {"skipped": True, "reason": "RESEND_API_KEY not set"}
+
+    from_email = os.environ.get("RAVEN_FROM_EMAIL", "Raven Control <onboarding@resend.dev>")
+    payload = {
+        "from": from_email,
+        "to": [to] if isinstance(to, str) else to,
+        "subject": subject,
+        "text": text_body,
+    }
+    if html_body:
+        payload["html"] = html_body
+    if reply_to:
+        payload["reply_to"] = reply_to
+
+    request = Request(
+        "https://api.resend.com/emails",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urlopen(request, timeout=20) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except (HTTPError, URLError, TimeoutError, OSError) as exc:
+        return {"error": str(exc)}
+
+
+def send_intake_emails(case, payload):
+    notify_to = os.environ.get("RAVEN_NOTIFY_EMAIL", "akeemandrew@ravencontrol.com")
+    customer_email = payload.get("email", "")
+    review = case.get("review", {})
+    console_url = os.environ.get("RAVEN_CONSOLE_URL", "https://ravencontrol-site.onrender.com")
+    reply_to = os.environ.get("RAVEN_REPLY_TO", "verify@ravencontrol.com")
+
+    internal_subject = f"New Raven intake: {review.get('risk', 'Needs review')} - {case.get('subject', '')}"
+    internal_text = f"""New Raven Control intake received.
+
+Case ID: {case.get('id')}
+Risk: {review.get('risk')}
+Bucket: {review.get('fraud_bucket')}
+Status: {case.get('status')}
+
+Name: {case.get('client_name')}
+Email: {customer_email}
+Phone: {payload.get('phone', '')}
+Who needs help: {payload.get('who_needs_help', '')}
+Item type: {payload.get('item_type', '')}
+Claimed sender: {payload.get('claimed_sender', '')}
+
+Message:
+{payload.get('suspicious_message', '')}
+
+Recommended response:
+{review.get('customer_response', '')}
+
+Guardian Console:
+{console_url}
+"""
+    internal_result = resend_email(
+        notify_to,
+        internal_subject,
+        internal_text,
+        reply_to=customer_email or reply_to,
+    )
+
+    customer_result = {"skipped": True, "reason": "customer email missing"}
+    if customer_email:
+        customer_subject = "Raven received your scam check"
+        customer_text = f"""Raven Control received your scam check.
+
+Preliminary risk: {review.get('risk')}
+
+Please do not click links, send money, reply, share codes, open attachments, install software, or call numbers from the suspicious message until it is reviewed.
+
+Initial guidance:
+{review.get('customer_response', '')}
+
+A Guardian will follow up as soon as possible.
+
+If money has already been sent, an account was accessed, or someone is pressuring you right now, reply with URGENT in the subject line.
+
+Raven Control helps organize, verify, and escalate suspicious requests. Raven Control does not provide legal, financial, banking, medical, or law enforcement services.
+
+The AI remembers. The Guardian cares.
+"""
+        customer_result = resend_email(
+            customer_email,
+            customer_subject,
+            customer_text,
+            reply_to=reply_to,
+        )
+
+    return {"internal": internal_result, "customer": customer_result}
+
+
 class Handler(BaseHTTPRequestHandler):
     server_version = "RavenMVP/0.1"
 
@@ -589,6 +690,7 @@ class Handler(BaseHTTPRequestHandler):
             "review": review,
         }
         state["cases"].insert(0, case)
+        case["email_delivery"] = send_intake_emails(case, payload)
         save_state(state)
         self.send_json(
             {

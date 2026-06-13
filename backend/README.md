@@ -16,6 +16,11 @@ Environment variables:
 
 - `ANTHROPIC_API_KEY`: your Claude API key
 - `RAVEN_CLAUDE_MODEL`: `claude-haiku-4-5`
+- `RESEND_API_KEY`: your Resend API key
+- `RAVEN_NOTIFY_EMAIL`: where internal intake alerts go, for example `akeemandrew@ravencontrol.com`
+- `RAVEN_FROM_EMAIL`: sender, for example `Raven Control <alerts@send.ravencontrol.com>`
+- `RAVEN_REPLY_TO`: reply address, for example `verify@ravencontrol.com`
+- `RAVEN_CONSOLE_URL`: Render console URL, for example `https://ravencontrol-site.onrender.com`
 
 Optional:
 
