@@ -77,6 +77,7 @@ function renderCaseDetail() {
 
   const review = item.review || {};
   const guardian = item.guardian_review || {};
+  const delivery = item.email_delivery || {};
   target.className = "case-detail";
   target.innerHTML = `
     <div class="detail-grid">
@@ -94,6 +95,7 @@ function renderCaseDetail() {
           <div><strong>Red flags</strong><div class="tags">${(review.red_flags || []).map((flag) => `<span class="tag">${escapeHtml(flag)}</span>`).join("")}</div></div>
           <div><strong>Safe verification path</strong>${escapeHtml(review.safe_verification_path || "")}</div>
           <div><strong>Axiom draft response</strong>${escapeHtml(review.customer_response || "")}</div>
+          <div><strong>Email delivery</strong><pre class="delivery-json">${escapeHtml(JSON.stringify(delivery, null, 2))}</pre></div>
         </div>
       </article>
 

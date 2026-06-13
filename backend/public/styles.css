@@ -402,6 +402,18 @@ button {
   min-height: 92px;
 }
 
+.delivery-json {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #f8fafc;
+  color: var(--text);
+  font: 12px/1.45 Consolas, "Courier New", monospace;
+}
+
 .templates p {
   color: var(--text);
   font-size: 13px;

@@ -691,6 +691,7 @@ class Handler(BaseHTTPRequestHandler):
         }
         state["cases"].insert(0, case)
         case["email_delivery"] = send_intake_emails(case, payload)
+        print(f"Email delivery for {case['id']}: {json.dumps(case['email_delivery'])}")
         save_state(state)
         self.send_json(
             {
@@ -699,6 +700,7 @@ class Handler(BaseHTTPRequestHandler):
                 "risk": review["risk"],
                 "fraud_bucket": review["fraud_bucket"],
                 "customer_response": review["customer_response"],
+                "email_delivery": case["email_delivery"],
             },
             status=201,
         )
