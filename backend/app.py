@@ -644,31 +644,34 @@ class Handler(BaseHTTPRequestHandler):
         host = self.headers.get("Host", "").split(":")[0].lower()
         is_customer_site = host == "ravencontrol.com" or host == "www.ravencontrol.com"
         
-        if self.path == "/" or self.path.startswith("/?"):
+        # Remove query string from path for matching
+        path_only = self.path.split("?")[0]
+        
+        if path_only == "/" or path_only == "":
             if is_customer_site:
                 # Serve customer site from root
                 self.send_file(ROOT.parent / "index.html", "text/html")
             else:
                 # Serve Guardian console from backend/public
                 self.send_file(ROOT / "public" / "index.html", "text/html")
-        elif self.path == "/styles.css" or self.path.startswith("/style.css"):
+        elif path_only == "/style.css" or path_only == "/styles.css":
             if is_customer_site:
                 self.send_file(ROOT.parent / "style.css", "text/css")
             else:
                 self.send_file(ROOT / "public" / "styles.css", "text/css")
-        elif self.path == "/app.js":
+        elif path_only == "/app.js":
             if is_customer_site:
                 self.send_file(ROOT.parent / "ask-raven.js", "application/javascript")
             else:
                 self.send_file(ROOT / "public" / "app.js", "application/javascript")
-        elif self.path == "/ask-raven.html":
+        elif path_only == "/ask-raven.html":
             self.send_file(ROOT.parent / "ask-raven.html", "text/html")
-        elif self.path == "/ask-raven.js":
+        elif path_only == "/ask-raven.js":
             # Customer scam check JavaScript
             self.send_file(ROOT.parent / "ask-raven.js", "application/javascript")
-        elif self.path.startswith("/assets/"):
+        elif path_only.startswith("/assets/"):
             # Serve customer assets
-            asset_path = ROOT.parent / self.path.lstrip("/")
+            asset_path = ROOT.parent / path_only.lstrip("/")
             if asset_path.exists() and asset_path.is_file():
                 # Determine content type based on extension
                 ext = asset_path.suffix.lower()
@@ -682,9 +685,9 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_file(asset_path, content_type)
             else:
                 self.send_error(404, "Asset not found")
-        elif self.path == "/api/state":
+        elif path_only == "/api/state":
             self.send_json(load_state())
-        elif self.path == "/api/health":
+        elif path_only == "/api/health":
             self.send_json({"ok": True, "service": "raven-control-api"})
         else:
             self.send_error(404, "Not found")
