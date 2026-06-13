@@ -9,6 +9,8 @@ from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+import requests
+
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
@@ -488,28 +490,27 @@ def resend_email(to, subject, text_body, html_body=None, reply_to=None):
     if reply_to:
         payload["reply_to"] = reply_to
 
-    request = Request(
-        "https://api.resend.com/emails",
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "User-Agent": "RavenControl/1.0 (https://ravencontrol.com)",
-        },
-        method="POST",
-    )
     try:
-        with urlopen(request, timeout=20) as response:
-            return json.loads(response.read().decode("utf-8"))
-    except HTTPError as exc:
-        error_body = exc.read().decode("utf-8", errors="replace")
+        response = requests.post(
+            "https://api.resend.com/emails",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "User-Agent": "RavenControl/1.0 (https://ravencontrol.com)",
+            },
+            json=payload,
+            timeout=20,
+        )
+        response_body = response.text
         try:
-            error_body = json.loads(error_body)
+            response_body = response.json()
         except json.JSONDecodeError:
             pass
-        return {"error": str(exc), "status": exc.code, "details": error_body}
-    except (URLError, TimeoutError, OSError) as exc:
+        if response.ok:
+            return response_body
+        return {"error": f"HTTP Error {response.status_code}", "status": response.status_code, "details": response_body}
+    except requests.RequestException as exc:
         return {"error": str(exc)}
 
 
