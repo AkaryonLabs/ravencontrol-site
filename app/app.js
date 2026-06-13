@@ -1,0 +1,1 @@
+document.querySelectorAll('.app-sidebar nav a').forEach((link)=>{const current=location.pathname.replace(/\/$/,'/index.html');if(link.pathname===current){link.style.background='rgba(255,255,255,.12)';link.style.color='#fff';}});

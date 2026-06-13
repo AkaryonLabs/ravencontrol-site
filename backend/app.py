@@ -21,6 +21,28 @@ DATA_FILE = DATA_DIR / "raven_mvp.json"
 HOST = os.environ.get("RAVEN_HOST", "0.0.0.0")
 PORT = int(os.environ.get("PORT", os.environ.get("RAVEN_PORT", "8765")))
 FREE_INTAKE_OFFERS = {"website_intake", "free_one_time_scam_check"}
+APP_ROUTES = {"/app", "/app/", "/app/index.html"}
+APP_PAGES = {
+    "satacheck.html",
+    "circle.html",
+    "business.html",
+    "companion.html",
+    "vault.html",
+    "billing.html",
+}
+
+
+def app_page_for_path(path):
+    if path in APP_ROUTES:
+        return "index.html"
+    if not path.startswith("/app/"):
+        return None
+    page = path.removeprefix("/app/")
+    if "/" in page or ".." in page:
+        return None
+    if page in APP_PAGES:
+        return page
+    return None
 
 FRAUD_BUCKETS = [
     "Authority scam",
@@ -686,6 +708,12 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 # Serve Guardian console from backend/public
                 self.send_file(ROOT / "public" / "index.html", "text/html")
+        elif app_page_for_path(path_only):
+            self.send_file(ROOT.parent / "app" / app_page_for_path(path_only), "text/html")
+        elif path_only == "/app/app.css":
+            self.send_file(ROOT.parent / "app" / "app.css", "text/css")
+        elif path_only == "/app/app.js":
+            self.send_file(ROOT.parent / "app" / "app.js", "application/javascript")
         elif path_only == "/style.css" or path_only == "/styles.css":
             if is_customer_site:
                 self.send_file(ROOT.parent / "style.css", "text/css")
