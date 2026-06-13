@@ -30,6 +30,19 @@ APP_PAGES = {
     "vault.html",
     "billing.html",
 }
+APP_FEATURES = ("satacheck", "circle", "companion", "business", "vault")
+PLAN_UNLOCKS = {
+    "free": {"satacheck"},
+    "basic": {"satacheck", "vault"},
+    "circle": {"satacheck", "circle", "vault"},
+    "business": {"satacheck", "business", "vault"},
+    "companion": {"satacheck", "companion", "vault"},
+}
+
+
+def tier_access_for_plan(plan):
+    unlocked = PLAN_UNLOCKS.get((plan or "free").strip().lower(), PLAN_UNLOCKS["free"])
+    return {feature: feature in unlocked for feature in APP_FEATURES}
 
 
 def app_page_for_path(path):
