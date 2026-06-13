@@ -640,12 +640,45 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        # Check if this is a customer access (not Guardian console)
+        host = self.headers.get("Host", "").split(":")[0].lower()
+        is_customer_site = host == "ravencontrol.com" or host == "www.ravencontrol.com"
+        
         if self.path == "/" or self.path.startswith("/?"):
-            self.send_file(ROOT / "public" / "index.html", "text/html")
+            if is_customer_site:
+                # Serve customer site from root
+                self.send_file(ROOT.parent / "index.html", "text/html")
+            else:
+                # Serve Guardian console from backend/public
+                self.send_file(ROOT / "public" / "index.html", "text/html")
         elif self.path == "/styles.css":
-            self.send_file(ROOT / "public" / "styles.css", "text/css")
+            if is_customer_site:
+                self.send_file(ROOT.parent / "style.css", "text/css")
+            else:
+                self.send_file(ROOT / "public" / "styles.css", "text/css")
         elif self.path == "/app.js":
-            self.send_file(ROOT / "public" / "app.js", "application/javascript")
+            if is_customer_site:
+                self.send_file(ROOT.parent / "ask-raven.js", "application/javascript")
+            else:
+                self.send_file(ROOT / "public" / "app.js", "application/javascript")
+        elif self.path == "/ask-raven.html":
+            self.send_file(ROOT.parent / "ask-raven.html", "text/html")
+        elif self.path.startswith("/assets/"):
+            # Serve customer assets
+            asset_path = ROOT.parent / self.path.lstrip("/")
+            if asset_path.exists() and asset_path.is_file():
+                # Determine content type based on extension
+                ext = asset_path.suffix.lower()
+                content_type = {
+                    ".png": "image/png",
+                    ".jpg": "image/jpeg",
+                    ".jpeg": "image/jpeg",
+                    ".gif": "image/gif",
+                    ".svg": "image/svg+xml",
+                }.get(ext, "application/octet-stream")
+                self.send_file(asset_path, content_type)
+            else:
+                self.send_error(404, "Asset not found")
         elif self.path == "/api/state":
             self.send_json(load_state())
         elif self.path == "/api/health":
