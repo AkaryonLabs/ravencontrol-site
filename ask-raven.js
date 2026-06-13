@@ -130,11 +130,16 @@ form.addEventListener("submit", async (event) => {
       body: JSON.stringify(payload),
     });
 
+    const result = await response.json().catch(() => ({}));
+
     if (!response.ok) {
-      throw new Error(`SataGuard backend returned ${response.status}`);
+      if (response.status === 429 && result.customer_response) {
+        setStatus("error", result.customer_response);
+        return;
+      }
+      throw new Error(result.message || `SataGuard backend returned ${response.status}`);
     }
 
-    const result = await response.json();
     setStatus(
       "success",
       `Received. Check your email for SataGuard's safety response. Case ${result.case_id} is ${result.risk} risk.`

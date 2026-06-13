@@ -20,6 +20,7 @@ DATA_DIR = ROOT / "data"
 DATA_FILE = DATA_DIR / "raven_mvp.json"
 HOST = os.environ.get("RAVEN_HOST", "0.0.0.0")
 PORT = int(os.environ.get("PORT", os.environ.get("RAVEN_PORT", "8765")))
+FREE_INTAKE_OFFERS = {"website_intake", "free_one_time_scam_check"}
 
 FRAUD_BUCKETS = [
     "Authority scam",
@@ -201,6 +202,37 @@ def load_state():
 
 def save_state(state):
     DATA_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
+
+
+def normalize_email(email):
+    return (email or "").strip().lower()
+
+
+def normalize_phone(phone):
+    return re.sub(r"\D+", "", phone or "")
+
+
+def customer_limit_key(payload):
+    email = normalize_email(payload.get("email"))
+    if email:
+        return f"email:{email}"
+    phone = normalize_phone(payload.get("phone"))
+    if phone:
+        return f"phone:{phone}"
+    return ""
+
+
+def has_used_free_intake(state, payload):
+    key = customer_limit_key(payload)
+    if not key:
+        return False
+    for case in state.get("cases", []):
+        if case.get("offer") not in FREE_INTAKE_OFFERS:
+            continue
+        contact = case.get("contact") or {}
+        if customer_limit_key(contact) == key:
+            return True
+    return False
 
 
 def count_matches(text, terms):
@@ -762,6 +794,16 @@ class Handler(BaseHTTPRequestHandler):
             "message": "\n".join(message_parts).strip(),
         }
         state = load_state()
+        if has_used_free_intake(state, payload):
+            self.send_json(
+                {
+                    "error": "free_check_already_used",
+                    "message": "It looks like you already used your free SataCheck. To avoid spam and keep reviews available for real requests, each email or phone number gets one free check. If this is urgent, reply to your confirmation email or contact SataGuard support.",
+                    "customer_response": "It looks like you already used your free SataCheck. If this is urgent, use a known official phone number or app to verify before clicking, paying, replying, sharing codes, or allowing remote access.",
+                },
+                status=429,
+            )
+            return
         rules = rules_review(review_payload)
         ai = provider_review(payload.get("api_provider", "rules"), review_payload, rules)
         review = merge_reviews(rules, ai)
