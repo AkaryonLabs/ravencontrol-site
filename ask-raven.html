@@ -150,6 +150,30 @@
             </label>
           </div>
 
+          <div class="form-section">
+            <h2>📸 Add Screenshot or File (Optional)</h2>
+            <p class="form-hint">
+              Help us see exactly what you received. Share a screenshot of the message, email, invoice, or website.
+              On mobile, you can take a fresh screenshot and upload it directly.
+            </p>
+            <label class="file-upload">
+              <input 
+                type="file" 
+                name="screenshot" 
+                accept="image/*,.pdf"
+                capture="environment"
+              />
+              <span class="file-upload-label">
+                <span class="file-icon">📸</span>
+                <span class="file-text">
+                  <strong>Add screenshot or file</strong>
+                  <small>PNG, JPG, or PDF • Max 10 MB</small>
+                </span>
+              </span>
+            </label>
+            <div id="filePreview" class="file-preview"></div>
+          </div>
+
           <label class="consent-line">
             <input type="checkbox" name="consent" required />
             <span>
