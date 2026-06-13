@@ -498,7 +498,14 @@ def resend_email(to, subject, text_body, html_body=None, reply_to=None):
     try:
         with urlopen(request, timeout=20) as response:
             return json.loads(response.read().decode("utf-8"))
-    except (HTTPError, URLError, TimeoutError, OSError) as exc:
+    except HTTPError as exc:
+        error_body = exc.read().decode("utf-8", errors="replace")
+        try:
+            error_body = json.loads(error_body)
+        except json.JSONDecodeError:
+            pass
+        return {"error": str(exc), "status": exc.code, "details": error_body}
+    except (URLError, TimeoutError, OSError) as exc:
         return {"error": str(exc)}
 
 
