@@ -739,6 +739,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_file(ROOT / "public" / "app.js", "application/javascript")
         elif path_only == "/ask-raven.html" or path_only == "/satacheck.html":
             self.send_file(ROOT.parent / "ask-raven.html", "text/html")
+        elif path_only == "/futureconnect.html":
+            self.send_file(ROOT.parent / "futureconnect.html", "text/html")
         elif path_only == "/ask-raven.js":
             # Customer scam check JavaScript
             self.send_file(ROOT.parent / "ask-raven.js", "application/javascript")
