@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#121a24" />
+  <title>FutureConnect | Barber Cloud Prototype</title>
+  <style>
+    :root{--ink:#eff4f7;--muted:#a4b4bd;--panel:#17212c;--panel2:#101820;--line:#2a3843;--lime:#b9e96b;--lime2:#e5ffc0;--amber:#ffc96b;--blue:#8cd7ff;--rose:#ffb3c1;--shadow:0 20px 60px rgba(0,0,0,.28);font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 85% -20%,rgba(185,233,107,.17),transparent 31%),linear-gradient(135deg,#0c1218,#131e28 54%,#0d151b);color:var(--ink);min-height:100vh}
+    button,input,textarea{font:inherit} button{cursor:pointer}.shell{max-width:1440px;margin:0 auto;padding:24px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:13px}.mark{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,var(--lime),#76ae3c);color:#14200f;font-weight:900;box-shadow:0 8px 24px rgba(185,233,107,.24)}.brand strong{display:block;font-size:1.06rem;letter-spacing:-.02em}.brand span{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}.test{display:flex;align-items:center;gap:9px;border:1px solid rgba(255,201,107,.45);border-radius:999px;padding:8px 11px;background:rgba(255,201,107,.08);color:#ffe6ad;font-size:.78rem}.dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(255,201,107,.13)}
+    .notice{display:flex;gap:10px;align-items:flex-start;margin:0 0 22px;padding:13px 15px;border:1px solid rgba(140,215,255,.25);background:rgba(140,215,255,.07);border-radius:14px;color:#c9eaff;font-size:.88rem}.notice strong{color:white}
+    .app{display:grid;grid-template-columns:250px minmax(0,1fr) 310px;gap:18px}.card{background:linear-gradient(145deg,rgba(28,40,52,.96),rgba(17,25,33,.97));border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+    .side{padding:15px;display:flex;flex-direction:column;gap:13px}.side h2,.right h2{font-size:.82rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:5px 3px 3px}.action{border:1px solid rgba(185,233,107,.4);background:linear-gradient(130deg,var(--lime),#8ec650);color:#12200e;border-radius:12px;padding:12px 13px;font-weight:800;text-align:left;transition:.16s transform,.16s filter}.action:hover{transform:translateY(-1px);filter:brightness(1.05)}.action.secondary{background:#21313a;color:#eff4f7;border-color:#344852}.action.ghost{background:transparent;color:#d6e2e8;border-color:#364855}.queue{display:grid;gap:8px;padding-top:4px}.queue-row{display:flex;justify-content:space-between;align-items:center;padding:10px 9px;border-radius:10px;color:#d5e1e6;font-size:.88rem}.queue-row.active{background:rgba(185,233,107,.12);color:#eaffc8}.badge{min-width:24px;text-align:center;border-radius:999px;background:#2a3942;color:#d7e6ed;font-size:.75rem;padding:3px 7px}.queue-row.active .badge{background:var(--lime);color:#172012}.footnote{margin-top:auto;border-top:1px solid var(--line);padding:13px 3px 0;color:#8fa1ab;font-size:.74rem;line-height:1.45}
+    .workspace{overflow:hidden}.workspace-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px 15px;border-bottom:1px solid var(--line)}.workspace-head h1{font-size:1.24rem;margin:0;letter-spacing:-.025em}.workspace-head p{margin:4px 0 0;color:var(--muted);font-size:.84rem}.channel{display:flex;align-items:center;gap:8px;color:#f1c1e6;font-size:.82rem;background:#3a2334;border:1px solid #57334c;border-radius:999px;padding:7px 10px}.channel i{width:8px;height:8px;background:#ff7ec1;border-radius:50%;display:inline-block}
+    .tabs{display:flex;gap:5px;padding:12px 16px;border-bottom:1px solid var(--line);overflow:auto}.tab{border:0;background:transparent;color:var(--muted);padding:8px 10px;border-radius:9px;white-space:nowrap}.tab.active{background:#263640;color:white}.view{display:none;padding:20px;min-height:550px}.view.active{display:block}.conversation{display:grid;gap:12px}.message{max-width:78%;padding:12px 13px;border-radius:14px;line-height:1.42;font-size:.92rem}.message.in{background:#263640;border-bottom-left-radius:4px}.message.out{margin-left:auto;background:#475f2d;border-bottom-right-radius:4px;color:#f3ffe1}.message.system{max-width:100%;background:rgba(140,215,255,.09);border:1px solid rgba(140,215,255,.18);color:#d9f3ff;font-size:.82rem}.meta{color:#95a8b3;font-size:.72rem;margin-bottom:4px}.quick{display:flex;flex-wrap:wrap;gap:8px;padding-top:8px}.quick button{border:1px solid #3b4d58;border-radius:999px;background:#1d2a34;color:#dce9ef;padding:8px 10px;font-size:.8rem}.quick button:hover{background:#2a3b47}.leadbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px;padding:12px 14px;border-radius:14px;background:linear-gradient(115deg,rgba(185,233,107,.12),rgba(140,215,255,.08));border:1px solid rgba(185,233,107,.2)}.leadbar strong{font-size:.94rem}.leadbar span{color:var(--muted);font-size:.8rem}
+    .right{display:grid;gap:18px}.panel{padding:17px}.client{display:flex;gap:11px;align-items:center}.avatar{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#8cd7ff,#4c8baf);color:#10212b;font-weight:900}.client h3{margin:0;font-size:1rem}.client p{margin:3px 0 0;color:var(--muted);font-size:.78rem}.facts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}.fact{padding:9px;border:1px solid var(--line);border-radius:10px;background:#17222a}.fact label{display:block;font-size:.67rem;color:#91a4af;text-transform:uppercase;letter-spacing:.08em}.fact strong{display:block;margin-top:4px;font-size:.84rem}.label{display:block;color:var(--muted);font-size:.76rem;margin:11px 0 6px}.notes{width:100%;min-height:76px;padding:10px;border-radius:10px;border:1px solid #3b4e59;background:#10181f;color:#e5eff3;resize:vertical}.save{margin-top:9px;border:1px solid rgba(185,233,107,.42);border-radius:9px;background:transparent;color:var(--lime2);font-size:.82rem;padding:8px 10px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:11px;border:1px solid var(--line);border-radius:11px}.stat strong{display:block;font-size:1.3rem}.stat span{display:block;color:var(--muted);font-size:.72rem;margin-top:3px}.opening{margin-top:13px;padding:12px;border-radius:12px;background:rgba(255,201,107,.09);border:1px solid rgba(255,201,107,.22)}.opening h3{margin:0 0 5px;font-size:.9rem;color:#ffe7b7}.opening p{margin:0 0 10px;font-size:.8rem;color:#e7d9b9}.opening button{border:0;border-radius:9px;background:var(--amber);color:#271b09;font-weight:800;padding:9px 10px;font-size:.8rem}
+    .table{width:100%;border-collapse:collapse;font-size:.88rem}.table th{text-align:left;color:#92a6b0;font-size:.71rem;text-transform:uppercase;letter-spacing:.08em;padding:10px 8px;border-bottom:1px solid var(--line)}.table td{padding:12px 8px;border-bottom:1px solid rgba(55,73,84,.55);color:#e4edf1}.status{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:.72rem}.wait{background:rgba(255,201,107,.13);color:#ffe2a6}.book{background:rgba(185,233,107,.13);color:#d9ff9f}.brief{display:grid;gap:11px}.brief-row{display:flex;justify-content:space-between;align-items:center;padding:13px;border:1px solid var(--line);border-radius:12px;background:#18232c}.brief-row strong{font-size:1.2rem;color:var(--lime2)}.brief-row span{color:var(--muted);font-size:.85rem}.mini{color:#9db0ba;font-size:.82rem;line-height:1.55;margin-top:16px;padding:13px;border-left:3px solid var(--blue);background:rgba(140,215,255,.06)}
+    .toast{position:fixed;right:24px;bottom:24px;max-width:330px;background:#e6ffc0;color:#16200e;border-radius:13px;padding:13px 16px;font-weight:750;box-shadow:var(--shadow);transform:translateY(100px);opacity:0;transition:.24s}.toast.show{transform:translateY(0);opacity:1}.demo-chip{font-size:.72rem;color:#121c11;background:var(--lime);border-radius:999px;padding:3px 7px;font-weight:900;margin-left:7px}
+    @media (max-width:1080px){.app{grid-template-columns:220px minmax(0,1fr)}.right{grid-column:1/-1;grid-template-columns:1fr 1fr}.right .panel:last-child{grid-column:1/-1}}@media (max-width:720px){.shell{padding:14px}.top{align-items:flex-start}.top .test{display:none}.app{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.side h2,.queue,.footnote{grid-column:1/-1}.right{grid-column:auto;grid-template-columns:1fr}.right .panel:last-child{grid-column:auto}.view{min-height:auto;padding:14px}.workspace-head{padding:17px}.message{max-width:92%}.facts{grid-template-columns:1fr}.tabs{padding:10px}.leadbar{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div class="brand"><div class="mark">F</div><div><strong>FutureConnect</strong><span>by FeatureFuture · Barber Cloud</span></div></div>
+      <div class="test"><span class="dot"></span> Test build · Browser-only demo</div>
+    </header>
+
+    <div class="notice"><span>✦</span><div><strong>This is the founder prototype.</strong> It demonstrates the workflow only. It is not connected to Instagram, a booking platform, SMS, or real customer data.</div></div>
+
+    <section class="app" aria-label="FutureConnect prototype">
+      <aside class="side card">
+        <h2>Command bar</h2>
+        <button class="action" id="newLead">＋ Simulate Instagram lead</button>
+        <button class="action secondary" id="openSlot">◷ Open a 7:00 PM slot</button>
+        <button class="action secondary" id="rebook">↻ Queue 3-week rebook</button>
+        <h2>Queues</h2>
+        <div class="queue">
+          <button class="queue-row active" data-tab="inbox"><span>Instagram inbox</span><b class="badge" id="inboxCount">1</b></button>
+          <button class="queue-row" data-tab="waitlist"><span>Waitlist</span><b class="badge" id="waitCount">2</b></button>
+          <button class="queue-row" data-tab="memory"><span>StyleVault</span><b class="badge">24</b></button>
+          <button class="queue-row" data-tab="brief"><span>Weekly brief</span><b class="badge">↗</b></button>
+        </div>
+        <div class="footnote">Prototype behavior is stored only in this browser using local storage. Use the reset button in the Weekly Brief panel to restart the demo.</div>
+      </aside>
+
+      <section class="workspace card">
+        <div class="workspace-head"><div><h1>Marcus Cuts · Founder workspace <span class="demo-chip">DEMO</span></h1><p>One barber · one Instagram · one booking link</p></div><div class="channel"><i></i> Instagram intake</div></div>
+        <nav class="tabs" aria-label="Prototype views">
+          <button class="tab active" data-tab="inbox">Inbox</button><button class="tab" data-tab="waitlist">Waitlist</button><button class="tab" data-tab="memory">StyleVault</button><button class="tab" data-tab="brief">Weekly Brief</button>
+        </nav>
+
+        <div class="view active" id="inbox">
+          <div class="leadbar"><div><strong>New lead · Carlos M.</strong><br><span>Wants Friday after 5 PM · Taper + beard</span></div><span id="leadStatus">Needs response</span></div>
+          <div class="conversation" id="conversation">
+            <div class="message in"><div class="meta">Carlos · Instagram DM · 2 min ago</div>How much for a taper and beard? You got anything Friday after 5?</div>
+            <div class="message system">FutureConnect detected: <strong>service question</strong> + <strong>Friday availability</strong>. Suggested next step: send price guidance, then booking or waitlist.</div>
+          </div>
+          <div class="quick">
+            <button data-reply="price">Send price + booking link</button>
+            <button data-reply="waitlist">Add Carlos to Friday waitlist</button>
+            <button data-reply="reference">Ask for a reference photo</button>
+            <button data-reply="barber">Escalate to Marcus</button>
+          </div>
+        </div>
+
+        <div class="view" id="waitlist">
+          <h2 style="margin:0 0 8px">Opening Fill</h2><p style="margin:0 0 16px;color:var(--muted);font-size:.88rem">Offer openings to the best-fit person first—do not blast everyone.</p>
+          <table class="table"><thead><tr><th>Client</th><th>Requested</th><th>Best window</th><th>Status</th></tr></thead><tbody id="waitRows"></tbody></table>
+          <div class="mini">When Marcus opens a slot, FutureConnect matches the barber, requested day/time, and consented opening-alert preference before preparing the message.</div>
+        </div>
+
+        <div class="view" id="memory">
+          <h2 style="margin:0 0 8px">StyleVault · client memory</h2><p style="margin:0 0 16px;color:var(--muted);font-size:.88rem">Only practical service notes—never raw recordings.</p>
+          <table class="table"><thead><tr><th>Client</th><th>Last service</th><th>Notes</th><th>Rebook</th></tr></thead><tbody id="memoryRows"></tbody></table>
+        </div>
+
+        <div class="view" id="brief">
+          <h2 style="margin:0 0 6px">Weekly Barber Brief</h2><p style="margin:0 0 16px;color:var(--muted);font-size:.88rem">A simple operating view—not fake revenue claims.</p>
+          <div class="brief" id="briefRows"></div>
+          <div class="mini" id="briefNote">Action needed: Reply to Carlos or move him to Friday’s opening list.</div>
+          <button class="save" id="reset">Reset demo data</button>
+        </div>
+      </section>
+
+      <aside class="right">
+        <section class="panel card">
+          <h2>Lead snapshot</h2>
+          <div class="client"><div class="avatar">CM</div><div><h3>Carlos M.</h3><p>@carlosm · English / Spanish</p></div></div>
+          <div class="facts"><div class="fact"><label>Service</label><strong>Taper + beard</strong></div><div class="fact"><label>Prefers</label><strong>Fri after 5</strong></div><div class="fact"><label>Source</label><strong>Instagram</strong></div><div class="fact"><label>Status</label><strong id="sideStatus">New lead</strong></div></div>
+          <label class="label" for="notes">StyleVault notes</label>
+          <textarea class="notes" id="notes">Low taper · keep curls on top · soft lineup · beard blend</textarea>
+          <button class="save" id="saveNotes">Save client notes</button>
+        </section>
+
+        <section class="panel card">
+          <h2>Live queue</h2>
+          <div class="statgrid"><div class="stat"><strong id="statLeads">12</strong><span>new leads</span></div><div class="stat"><strong id="statLinks">9</strong><span>booking links</span></div><div class="stat"><strong id="statWait">2</strong><span>waitlist clients</span></div><div class="stat"><strong id="statRebooks">7</strong><span>rebooks due</span></div></div>
+          <div class="opening"><h3>7:00 PM just opened</h3><p>Friday · 45 min service window · Carlos is the best match.</p><button id="offerSlot">Offer it to Carlos</button></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const defaults={leads:12,links:9,wait:2,rebooks:7,waitlist:[{name:'Carlos M.',service:'Taper + beard',window:'Fri after 5',status:'Waiting'},{name:'Jalen R.',service:'Cut only',window:'Fri 6–8 PM',status:'Waiting'}],memory:[{name:'Carlos M.',service:'Low taper + beard',notes:'Keep curls · soft lineup',rebook:'3 weeks'},{name:'DeAndre T.',service:'High taper',notes:'No enhancement',rebook:'2 weeks'},{name:'Mason K.',service:'Kids cut',notes:'Scissor top',rebook:'4 weeks'}],conversation:[],leadStatus:'Needs response',slotOffered:false};
+    let state=JSON.parse(localStorage.getItem('futureconnect-demo'))||structuredClone(defaults);
+    const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
+    function save(){localStorage.setItem('futureconnect-demo',JSON.stringify(state))}
+    function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200)}
+    function esc(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+    function render(){
+      $('#inboxCount').textContent=state.leadStatus==='Booked'?0:1;$('#waitCount').textContent=state.wait;$('#statLeads').textContent=state.leads;$('#statLinks').textContent=state.links;$('#statWait').textContent=state.wait;$('#statRebooks').textContent=state.rebooks;$('#leadStatus').textContent=state.leadStatus;$('#sideStatus').textContent=state.leadStatus;
+      const base=`<div class="message in"><div class="meta">Carlos · Instagram DM · 2 min ago</div>How much for a taper and beard? You got anything Friday after 5?</div><div class="message system">FutureConnect detected: <strong>service question</strong> + <strong>Friday availability</strong>. Suggested next step: send price guidance, then booking or waitlist.</div>`;
+      $('#conversation').innerHTML=base+state.conversation.map(m=>`<div class="message ${m.type}"><div class="meta">${m.meta}</div>${m.text}</div>`).join('');
+      $('#waitRows').innerHTML=state.waitlist.map(w=>`<tr><td>${esc(w.name)}</td><td>${esc(w.service)}</td><td>${esc(w.window)}</td><td><span class="status ${w.status==='Booked'?'book':'wait'}">${esc(w.status)}</span></td></tr>`).join('');
+      $('#memoryRows').innerHTML=state.memory.map(m=>`<tr><td>${esc(m.name)}</td><td>${esc(m.service)}</td><td>${esc(m.notes)}</td><td>${esc(m.rebook)}</td></tr>`).join('');
+      $('#briefRows').innerHTML=[['New Instagram conversations',state.leads],['Booking links sent',state.links],['Waitlist clients',state.wait],['Clients due for rebook',state.rebooks]].map(([a,b])=>`<div class="brief-row"><span>${a}</span><strong>${b}</strong></div>`).join('');
+      $('#briefNote').textContent=state.slotOffered?'Opening Fill sent: Carlos has been offered the 7:00 PM Friday slot.':'Action needed: Reply to Carlos or move him to Friday’s opening list.';
+      save();
+    }
+    function add(text,meta='FutureConnect · just now',type='out'){state.conversation.push({text,meta,type})}
+    function setTab(tab){$$('.tab,.queue-row').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));$$('.view').forEach(x=>x.classList.toggle('active',x.id===tab));}
+    $$('.tab,.queue-row').forEach(x=>x.addEventListener('click',()=>setTab(x.dataset.tab)));
+    $$('[data-reply]').forEach(b=>b.addEventListener('click',()=>{const r=b.dataset.reply;if(r==='price'){add('Thanks for reaching out to Marcus Cuts. A taper + beard starts at $45. You can book Friday through Marcus’s link here: <strong>book.marcuscuts.com</strong>');state.links++;state.leadStatus='Booking link sent';toast('Booking handoff prepared for Carlos.')}if(r==='waitlist'){add('Marcus is booked Friday right now, but I can add you to the opening list. What time range works best?');state.waitlist[0].status='Waiting';state.leadStatus='On waitlist';toast('Carlos is now on the Friday waitlist.')}if(r==='reference'){add('Absolutely—send a reference photo if you have one, plus the look you want for the taper and beard.');state.leadStatus='Reference requested';toast('Reference-photo request sent.')}if(r==='barber'){add('I sent Marcus your request for Friday after 5. He will confirm the best option when he is free.','FutureConnect · owner alert','system');state.leadStatus='Waiting for Marcus';toast('Owner alert created for Marcus.')}render()}));
+    function offer(){if(state.slotOffered){toast('Carlos has already been offered this opening.');return}state.slotOffered=true;state.waitlist[0].status='Offered';add('Hey Carlos — Marcus just had a <strong>7:00 PM opening tonight</strong>. Want it? Tap the booking link to claim it before it is gone.');state.leadStatus='Opening offered';toast('Opening Fill alert prepared for Carlos.');render()}$('#offerSlot').addEventListener('click',offer);$('#openSlot').addEventListener('click',offer);
+    $('#newLead').addEventListener('click',()=>{state.leads++;state.leadStatus='New lead';state.conversation=[];toast('New Instagram lead simulated. The inbox is reset for a fresh conversation.');render();setTab('inbox')});
+    $('#rebook').addEventListener('click',()=>{state.rebooks++;toast('A 3-week rebooking reminder was added to the queue.');render();setTab('brief')});
+    $('#saveNotes').addEventListener('click',()=>{state.memory[0].notes=$('#notes').value.trim()||defaults.memory[0].notes;toast('StyleVault notes saved in this browser.');render()});
+    $('#reset').addEventListener('click',()=>{state=structuredClone(defaults);$('#notes').value=defaults.memory[0].notes;toast('Demo reset.');render();setTab('inbox')});
+    render();
+  </script>
+</body>
+</html>
