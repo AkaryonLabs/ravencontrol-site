@@ -3,26 +3,103 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#090b13" />
+    <meta name="theme-color" content="#fbf7ef" />
     <meta
       name="description"
-      content="FutureFeature is a clean coming-soon home for what is being built next."
+      content="FutureFeature is a clean, playful home for building what comes next."
     />
     <title>FutureFeature</title>
-    <link rel="stylesheet" href="style.css?v=futurefeature-1" />
+    <link rel="stylesheet" href="style.css?v=futurefeature-superlist-1" />
   </head>
   <body class="futurefeature-site">
-    <main class="future-shell" aria-labelledby="future-title">
-      <section class="future-card">
-        <p class="future-eyebrow">Coming soon</p>
-        <h1 id="future-title">FutureFeature</h1>
-        <p class="future-lede">
-          A simple home for what is being built next.
+    <header class="ff-nav" aria-label="Main navigation">
+      <a class="ff-logo" href="/" aria-label="FutureFeature home">
+        <span>F</span>
+        FutureFeature
+      </a>
+      <nav>
+        <a href="#ideas">Ideas</a>
+        <a href="#flow">Flow</a>
+        <a href="#updates">Updates</a>
+      </nav>
+      <a class="ff-nav-button" href="#updates">Follow along</a>
+    </header>
+
+    <main>
+      <section class="ff-hero" aria-labelledby="future-title">
+        <p class="ff-pill">Next version loading</p>
+        <h1 id="future-title">Build the future, one feature at a time.</h1>
+        <p class="ff-lede">
+          FutureFeature is a simple, playful home for the ideas, tools, and product experiments being shaped next.
         </p>
-        <div class="future-line" aria-hidden="true"></div>
-        <p class="future-note">
-          More details will be shared when the next version is ready.
+        <div class="ff-actions">
+          <a class="ff-primary" href="#ideas">Explore the idea</a>
+          <a class="ff-secondary" href="#updates">See what’s next</a>
+        </div>
+      </section>
+
+      <section class="ff-showcase" aria-label="FutureFeature preview">
+        <article class="ff-window ff-window-large">
+          <div class="ff-window-top">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="ff-task-list">
+            <div class="ff-task checked"><span></span><strong>Name the next move</strong><em>Today</em></div>
+            <div class="ff-task"><span></span><strong>Shape the landing page</strong><em>In progress</em></div>
+            <div class="ff-task"><span></span><strong>Turn rough ideas into features</strong><em>Next</em></div>
+            <div class="ff-note">
+              <p>Focus</p>
+              <h2>Less noise. More momentum.</h2>
+            </div>
+          </div>
+        </article>
+
+        <article class="ff-orbit-card card-red">
+          <p>Idea</p>
+          <h3>Capture the spark before it disappears.</h3>
+        </article>
+        <article class="ff-orbit-card card-yellow">
+          <p>Plan</p>
+          <h3>Make the next step obvious.</h3>
+        </article>
+        <article class="ff-orbit-card card-blue">
+          <p>Build</p>
+          <h3>Ship tiny, learn fast, improve.</h3>
+        </article>
+      </section>
+
+      <section id="ideas" class="ff-section ff-split">
+        <div>
+          <p class="ff-kicker">For ideas in motion</p>
+          <h2>FutureFeature keeps the page clean while the product takes shape.</h2>
+        </div>
+        <p>
+          This version is intentionally simple: a polished front door, a flexible visual system, and enough structure to grow into whatever comes next.
         </p>
+      </section>
+
+      <section id="flow" class="ff-grid">
+        <article>
+          <span>01</span>
+          <h3>Start simple</h3>
+          <p>Lead with one clear name and one clear direction.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Add features later</h3>
+          <p>Keep the foundation ready for product, app, or service pages.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Stay flexible</h3>
+          <p>Move fast without locking the business into old branding.</p>
+        </article>
+      </section>
+
+      <section id="updates" class="ff-cta">
+        <p class="ff-pill">FutureFeature</p>
+        <h2>More soon.</h2>
+        <p>The next version can become a waitlist, product teaser, app download page, or full launch site.</p>
       </section>
     </main>
   </body>
