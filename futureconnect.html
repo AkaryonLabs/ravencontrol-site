@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#121a24" />
-  <title>FutureConnect | Barber Cloud Prototype</title>
+  <title>FutureConnect | 60-Second Barber Sales Demo</title>
   <style>
     :root{--ink:#eff4f7;--muted:#a4b4bd;--panel:#17212c;--panel2:#101820;--line:#2a3843;--lime:#b9e96b;--lime2:#e5ffc0;--amber:#ffc96b;--blue:#8cd7ff;--rose:#ffb3c1;--shadow:0 20px 60px rgba(0,0,0,.28);font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif}
     *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 85% -20%,rgba(185,233,107,.17),transparent 31%),linear-gradient(135deg,#0c1218,#131e28 54%,#0d151b);color:var(--ink);min-height:100vh}
@@ -18,23 +18,34 @@
     .right{display:grid;gap:18px}.panel{padding:17px}.client{display:flex;gap:11px;align-items:center}.avatar{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#8cd7ff,#4c8baf);color:#10212b;font-weight:900}.client h3{margin:0;font-size:1rem}.client p{margin:3px 0 0;color:var(--muted);font-size:.78rem}.facts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}.fact{padding:9px;border:1px solid var(--line);border-radius:10px;background:#17222a}.fact label{display:block;font-size:.67rem;color:#91a4af;text-transform:uppercase;letter-spacing:.08em}.fact strong{display:block;margin-top:4px;font-size:.84rem}.label{display:block;color:var(--muted);font-size:.76rem;margin:11px 0 6px}.notes{width:100%;min-height:76px;padding:10px;border-radius:10px;border:1px solid #3b4e59;background:#10181f;color:#e5eff3;resize:vertical}.save{margin-top:9px;border:1px solid rgba(185,233,107,.42);border-radius:9px;background:transparent;color:var(--lime2);font-size:.82rem;padding:8px 10px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:11px;border:1px solid var(--line);border-radius:11px}.stat strong{display:block;font-size:1.3rem}.stat span{display:block;color:var(--muted);font-size:.72rem;margin-top:3px}.opening{margin-top:13px;padding:12px;border-radius:12px;background:rgba(255,201,107,.09);border:1px solid rgba(255,201,107,.22)}.opening h3{margin:0 0 5px;font-size:.9rem;color:#ffe7b7}.opening p{margin:0 0 10px;font-size:.8rem;color:#e7d9b9}.opening button{border:0;border-radius:9px;background:var(--amber);color:#271b09;font-weight:800;padding:9px 10px;font-size:.8rem}
     .table{width:100%;border-collapse:collapse;font-size:.88rem}.table th{text-align:left;color:#92a6b0;font-size:.71rem;text-transform:uppercase;letter-spacing:.08em;padding:10px 8px;border-bottom:1px solid var(--line)}.table td{padding:12px 8px;border-bottom:1px solid rgba(55,73,84,.55);color:#e4edf1}.status{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:.72rem}.wait{background:rgba(255,201,107,.13);color:#ffe2a6}.book{background:rgba(185,233,107,.13);color:#d9ff9f}.brief{display:grid;gap:11px}.brief-row{display:flex;justify-content:space-between;align-items:center;padding:13px;border:1px solid var(--line);border-radius:12px;background:#18232c}.brief-row strong{font-size:1.2rem;color:var(--lime2)}.brief-row span{color:var(--muted);font-size:.85rem}.mini{color:#9db0ba;font-size:.82rem;line-height:1.55;margin-top:16px;padding:13px;border-left:3px solid var(--blue);background:rgba(140,215,255,.06)}
     .toast{position:fixed;right:24px;bottom:24px;max-width:330px;background:#e6ffc0;color:#16200e;border-radius:13px;padding:13px 16px;font-weight:750;box-shadow:var(--shadow);transform:translateY(100px);opacity:0;transition:.24s}.toast.show{transform:translateY(0);opacity:1}.demo-chip{font-size:.72rem;color:#121c11;background:var(--lime);border-radius:999px;padding:3px 7px;font-weight:900;margin-left:7px}
-    @media (max-width:1080px){.app{grid-template-columns:220px minmax(0,1fr)}.right{grid-column:1/-1;grid-template-columns:1fr 1fr}.right .panel:last-child{grid-column:1/-1}}@media (max-width:720px){.shell{padding:14px}.top{align-items:flex-start}.top .test{display:none}.app{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.side h2,.queue,.footnote{grid-column:1/-1}.right{grid-column:auto;grid-template-columns:1fr}.right .panel:last-child{grid-column:auto}.view{min-height:auto;padding:14px}.workspace-head{padding:17px}.message{max-width:92%}.facts{grid-template-columns:1fr}.tabs{padding:10px}.leadbar{align-items:flex-start;flex-direction:column}}
+
+    .sales-hero{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:center;margin:0 0 22px;padding:22px;background:linear-gradient(135deg,rgba(185,233,107,.16),rgba(140,215,255,.08));border-color:rgba(185,233,107,.24)}.sales-hero .eyebrow{margin:0 0 7px;color:var(--lime2);text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:900}.sales-hero h1{margin:0;font-size:clamp(1.55rem,3vw,3rem);letter-spacing:-.05em;line-height:1.02}.sales-hero p{max-width:850px;margin:11px 0 0;color:#c9d7de;line-height:1.55}.founder-offer{display:grid;gap:5px;padding:16px;border-radius:15px;background:#111b22;border:1px solid rgba(185,233,107,.32)}.founder-offer strong{color:var(--lime2)}.founder-offer span{font-size:1.3rem;font-weight:900}.founder-offer small{color:var(--muted);line-height:1.4}.demo-card{padding:17px}.demo-card ol{display:grid;gap:9px;margin:12px 0 0;padding-left:20px;color:#dbe8ee;font-size:.84rem;line-height:1.38}.demo-card li::marker{color:var(--lime);font-weight:900}.demo-card .say{margin-top:12px;padding:10px 11px;border-radius:11px;background:rgba(185,233,107,.1);border:1px solid rgba(185,233,107,.2);color:#eaffc8;font-size:.78rem;line-height:1.45}.money.action,.money-moment{box-shadow:0 0 0 1px rgba(255,201,107,.45),0 16px 42px rgba(255,201,107,.12)}.money-tag{display:inline-flex;margin-bottom:7px;padding:3px 7px;border-radius:999px;background:var(--amber);color:#241909;font-weight:900;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em}.sales-assets{display:grid;grid-template-columns:1.2fr .9fr .9fr;gap:18px;margin-top:22px}.asset{padding:18px}.asset h2{margin:0 0 10px;font-size:.86rem;color:var(--lime2);text-transform:uppercase;letter-spacing:.1em}.asset p,.asset li{color:#d5e2e8;line-height:1.55;font-size:.9rem}.asset ul{padding-left:19px;margin:0}.asset .script{white-space:pre-line}.question{border-left:3px solid var(--amber);background:rgba(255,201,107,.08);padding:12px;border-radius:10px;color:#ffe6ad;font-weight:800}
+    @media (max-width:1080px){.app{grid-template-columns:220px minmax(0,1fr)}.right{grid-column:1/-1;grid-template-columns:1fr 1fr}.right .panel:last-child{grid-column:1/-1}.sales-assets{grid-template-columns:1fr}.sales-hero{grid-template-columns:1fr}}@media (max-width:720px){.shell{padding:14px}.sales-hero{padding:17px}.founder-offer span{font-size:1.1rem}.top{align-items:flex-start}.top .test{display:none}.app{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.side h2,.queue,.footnote{grid-column:1/-1}.right{grid-column:auto;grid-template-columns:1fr}.right .panel:last-child{grid-column:auto}.view{min-height:auto;padding:14px}.workspace-head{padding:17px}.message{max-width:92%}.facts{grid-template-columns:1fr}.tabs{padding:10px}.leadbar{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
 <body>
   <main class="shell">
     <header class="top">
       <div class="brand"><div class="mark">F</div><div><strong>FutureConnect</strong><span>by FeatureFuture · Barber Cloud</span></div></div>
-      <div class="test"><span class="dot"></span> Test build · Browser-only demo</div>
+      <div class="test"><span class="dot"></span> 60-second sales demo · Browser-only</div>
     </header>
 
-    <div class="notice"><span>✦</span><div><strong>This is the founder prototype.</strong> It demonstrates the workflow only. It is not connected to Instagram, a booking platform, SMS, or real customer data.</div></div>
+    <div class="notice"><span>✦</span><div><strong>60-second barber sales demo.</strong> Sell one outcome: <em>You do not lose clients just because you were busy cutting.</em> Browser-only demo—no real Instagram, booking, SMS, payment, or customer data.</div></div>
+
+    <section class="sales-hero card" aria-label="Sales outcome">
+      <div>
+        <p class="eyebrow">FutureConnect Social</p>
+        <h1>You do not lose clients just because you were busy cutting.</h1>
+        <p>Show a barber how FutureConnect turns Instagram DMs into booking opportunities, captures waitlist clients, fills last-minute openings, remembers style notes, and brings regulars back.</p>
+      </div>
+      <div class="founder-offer"><strong>Founder barber access</strong><span>$50 setup + $49/month</span><small>Looking for 3 barbers to shape version one.</small></div>
+    </section>
 
     <section class="app" aria-label="FutureConnect prototype">
       <aside class="side card">
         <h2>Command bar</h2>
-        <button class="action" id="newLead">＋ Simulate Instagram lead</button>
-        <button class="action secondary" id="openSlot">◷ Open a 7:00 PM slot</button>
+        <button class="action" id="newLead">① Open Inbox / reset Carlos lead</button>
+        <button class="action secondary money" id="openSlot">④ Open a 7:00 PM slot</button>
         <button class="action secondary" id="rebook">↻ Queue 3-week rebook</button>
         <h2>Queues</h2>
         <div class="queue">
@@ -56,11 +67,11 @@
           <div class="leadbar"><div><strong>New lead · Carlos M.</strong><br><span>Wants Friday after 5 PM · Taper + beard</span></div><span id="leadStatus">Needs response</span></div>
           <div class="conversation" id="conversation">
             <div class="message in"><div class="meta">Carlos · Instagram DM · 2 min ago</div>How much for a taper and beard? You got anything Friday after 5?</div>
-            <div class="message system">FutureConnect detected: <strong>service question</strong> + <strong>Friday availability</strong>. Suggested next step: send price guidance, then booking or waitlist.</div>
+            <div class="message system">FutureConnect detected: <strong>service question</strong> + <strong>availability request</strong> + <strong>booking opportunity</strong>. Suggested next step: send price guidance, then booking or waitlist.</div>
           </div>
           <div class="quick">
-            <button data-reply="price">Send price + booking link</button>
-            <button data-reply="waitlist">Add Carlos to Friday waitlist</button>
+            <button data-reply="price">② Send price + booking link</button>
+            <button data-reply="waitlist">③ Add Carlos to Friday waitlist</button>
             <button data-reply="reference">Ask for a reference photo</button>
             <button data-reply="barber">Escalate to Marcus</button>
           </div>
@@ -86,6 +97,18 @@
       </section>
 
       <aside class="right">
+        <section class="demo-card card">
+          <h2>60-second demo flow</h2>
+          <ol>
+            <li>Open Inbox: Carlos asks price + Friday availability.</li>
+            <li>Point out service question, availability request, booking opportunity.</li>
+            <li>Send price + booking link: give the next step while the barber cuts.</li>
+            <li>Add to waitlist: capture the lead when booked.</li>
+            <li>Open 7 PM slot: fill the cancellation—the money moment.</li>
+            <li>Show StyleVault and Weekly Brief.</li>
+          </ol>
+          <div class="say">Say: “FutureConnect helps you stop losing clients just because Instagram messages sat while you were with a client.”</div>
+        </section>
         <section class="panel card">
           <h2>Lead snapshot</h2>
           <div class="client"><div class="avatar">CM</div><div><h3>Carlos M.</h3><p>@carlosm · English / Spanish</p></div></div>
@@ -98,15 +121,49 @@
         <section class="panel card">
           <h2>Live queue</h2>
           <div class="statgrid"><div class="stat"><strong id="statLeads">12</strong><span>new leads</span></div><div class="stat"><strong id="statLinks">9</strong><span>booking links</span></div><div class="stat"><strong id="statWait">2</strong><span>waitlist clients</span></div><div class="stat"><strong id="statRebooks">7</strong><span>rebooks due</span></div></div>
-          <div class="opening"><h3>7:00 PM just opened</h3><p>Friday · 45 min service window · Carlos is the best match.</p><button id="offerSlot">Offer it to Carlos</button></div>
+          <div class="opening money-moment"><span class="money-tag">Money moment</span><h3>7:00 PM just opened</h3><p>Friday · 45 min service window · Carlos is the best match.</p><button id="offerSlot">Offer it to Carlos</button></div>
         </section>
       </aside>
+    </section>
+
+    <section class="sales-assets" aria-label="Sales video assets">
+      <article class="asset card">
+        <h2>Voiceover script</h2>
+        <p class="script">You are busy cutting, so Instagram messages can sit there for hours.
+
+FutureConnect is a digital front desk for barbers.
+
+A client messages asking about a taper and beard, price, and Friday availability. Instead of getting lost in your DMs, FutureConnect recognizes what they need, gives them the right booking path, and keeps the lead organized.
+
+If you are booked, it adds them to your waitlist.
+
+Then if a slot opens up—like 7 PM tonight—FutureConnect can offer that opening to the best matching client first.
+
+It also saves practical style notes, reference details, and rebooking timing, so you remember how each client likes their cut and know when it is time to bring them back.
+
+That means fewer missed DMs, fewer empty cancellation spots, and more repeat clients.</p>
+      </article>
+      <article class="asset card">
+        <h2>Video caption</h2>
+        <p>Barbers should not lose clients because they were busy doing a cut.</p>
+        <p>FutureConnect helps turn Instagram DMs into booking opportunities, captures waitlist clients, fills last-minute openings, remembers style notes, and brings regulars back when it is time for their next cut.</p>
+        <p><strong>Founder barber access:</strong> $50 setup + $49/month.</p>
+        <p>Looking for 3 barbers to help shape the first version.</p>
+      </article>
+      <article class="asset card">
+        <h2>DM to send</h2>
+        <p>What’s good [Name] — I’m building FutureConnect for barbers.</p>
+        <p>It helps with Instagram DMs, booking handoff, waitlist clients, canceled openings, style notes, and rebooking regulars.</p>
+        <p>I made a quick demo showing how it works. I’m looking for 3 founder barbers to test it at $50 setup + $49/month.</p>
+        <p>Can I send it over?</p>
+        <div class="question">After they watch: “Which part would help you the most right now: getting back to DMs, filling cancellations, remembering client notes, or bringing regulars back?”</div>
+      </article>
     </section>
   </main>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const defaults={leads:12,links:9,wait:2,rebooks:7,waitlist:[{name:'Carlos M.',service:'Taper + beard',window:'Fri after 5',status:'Waiting'},{name:'Jalen R.',service:'Cut only',window:'Fri 6–8 PM',status:'Waiting'}],memory:[{name:'Carlos M.',service:'Low taper + beard',notes:'Keep curls · soft lineup',rebook:'3 weeks'},{name:'DeAndre T.',service:'High taper',notes:'No enhancement',rebook:'2 weeks'},{name:'Mason K.',service:'Kids cut',notes:'Scissor top',rebook:'4 weeks'}],conversation:[],leadStatus:'Needs response',slotOffered:false};
+    const defaults={leads:12,links:9,wait:2,rebooks:7,waitlist:[{name:'Carlos M.',service:'Taper + beard',window:'Fri after 5',status:'Waiting'},{name:'Jalen R.',service:'Cut only',window:'Fri 6–8 PM',status:'Waiting'}],memory:[{name:'Carlos M.',service:'Low taper + beard',notes:'Keep curls · soft lineup · beard blend',rebook:'3 weeks'},{name:'DeAndre T.',service:'High taper',notes:'No enhancement',rebook:'2 weeks'},{name:'Mason K.',service:'Kids cut',notes:'Scissor top',rebook:'4 weeks'}],conversation:[],leadStatus:'Needs response',slotOffered:false};
     let state=JSON.parse(localStorage.getItem('futureconnect-demo'))||structuredClone(defaults);
     const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
     function save(){localStorage.setItem('futureconnect-demo',JSON.stringify(state))}
@@ -114,7 +171,7 @@
     function esc(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
     function render(){
       $('#inboxCount').textContent=state.leadStatus==='Booked'?0:1;$('#waitCount').textContent=state.wait;$('#statLeads').textContent=state.leads;$('#statLinks').textContent=state.links;$('#statWait').textContent=state.wait;$('#statRebooks').textContent=state.rebooks;$('#leadStatus').textContent=state.leadStatus;$('#sideStatus').textContent=state.leadStatus;
-      const base=`<div class="message in"><div class="meta">Carlos · Instagram DM · 2 min ago</div>How much for a taper and beard? You got anything Friday after 5?</div><div class="message system">FutureConnect detected: <strong>service question</strong> + <strong>Friday availability</strong>. Suggested next step: send price guidance, then booking or waitlist.</div>`;
+      const base=`<div class="message in"><div class="meta">Carlos · Instagram DM · 2 min ago</div>How much for a taper and beard? You got anything Friday after 5?</div><div class="message system">FutureConnect detected: <strong>service question</strong> + <strong>availability request</strong> + <strong>booking opportunity</strong>. Suggested next step: send price guidance, then booking or waitlist.</div>`;
       $('#conversation').innerHTML=base+state.conversation.map(m=>`<div class="message ${m.type}"><div class="meta">${m.meta}</div>${m.text}</div>`).join('');
       $('#waitRows').innerHTML=state.waitlist.map(w=>`<tr><td>${esc(w.name)}</td><td>${esc(w.service)}</td><td>${esc(w.window)}</td><td><span class="status ${w.status==='Booked'?'book':'wait'}">${esc(w.status)}</span></td></tr>`).join('');
       $('#memoryRows').innerHTML=state.memory.map(m=>`<tr><td>${esc(m.name)}</td><td>${esc(m.service)}</td><td>${esc(m.notes)}</td><td>${esc(m.rebook)}</td></tr>`).join('');
@@ -127,7 +184,7 @@
     $$('.tab,.queue-row').forEach(x=>x.addEventListener('click',()=>setTab(x.dataset.tab)));
     $$('[data-reply]').forEach(b=>b.addEventListener('click',()=>{const r=b.dataset.reply;if(r==='price'){add('Thanks for reaching out to Marcus Cuts. A taper + beard starts at $45. You can book Friday through Marcus’s link here: <strong>book.marcuscuts.com</strong>');state.links++;state.leadStatus='Booking link sent';toast('Booking handoff prepared for Carlos.')}if(r==='waitlist'){add('Marcus is booked Friday right now, but I can add you to the opening list. What time range works best?');state.waitlist[0].status='Waiting';state.leadStatus='On waitlist';toast('Carlos is now on the Friday waitlist.')}if(r==='reference'){add('Absolutely—send a reference photo if you have one, plus the look you want for the taper and beard.');state.leadStatus='Reference requested';toast('Reference-photo request sent.')}if(r==='barber'){add('I sent Marcus your request for Friday after 5. He will confirm the best option when he is free.','FutureConnect · owner alert','system');state.leadStatus='Waiting for Marcus';toast('Owner alert created for Marcus.')}render()}));
     function offer(){if(state.slotOffered){toast('Carlos has already been offered this opening.');return}state.slotOffered=true;state.waitlist[0].status='Offered';add('Hey Carlos — Marcus just had a <strong>7:00 PM opening tonight</strong>. Want it? Tap the booking link to claim it before it is gone.');state.leadStatus='Opening offered';toast('Opening Fill alert prepared for Carlos.');render()}$('#offerSlot').addEventListener('click',offer);$('#openSlot').addEventListener('click',offer);
-    $('#newLead').addEventListener('click',()=>{state.leads++;state.leadStatus='New lead';state.conversation=[];toast('New Instagram lead simulated. The inbox is reset for a fresh conversation.');render();setTab('inbox')});
+    $('#newLead').addEventListener('click',()=>{state=structuredClone(defaults);$('#notes').value='Low taper · keep curls on top · soft lineup · beard blend';toast('Inbox reset to Carlos for the 60-second sales demo.');render();setTab('inbox')});
     $('#rebook').addEventListener('click',()=>{state.rebooks++;toast('A 3-week rebooking reminder was added to the queue.');render();setTab('brief')});
     $('#saveNotes').addEventListener('click',()=>{state.memory[0].notes=$('#notes').value.trim()||defaults.memory[0].notes;toast('StyleVault notes saved in this browser.');render()});
     $('#reset').addEventListener('click',()=>{state=structuredClone(defaults);$('#notes').value=defaults.memory[0].notes;toast('Demo reset.');render();setTab('inbox')});
