@@ -1387,7 +1387,12 @@ footer a:hover {
   background: #f7d877;
 }
 
-.announcement-stack a:nth-child(2) {
+.announcement-stack .futureconnect-demo-link {
+  background: linear-gradient(90deg, #b9e96b, #8cd7ff);
+  color: #07111f;
+}
+
+.announcement-stack a:nth-child(3) {
   background: #dff7ee;
 }
 
