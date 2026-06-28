@@ -740,7 +740,7 @@ class Handler(BaseHTTPRequestHandler):
         elif path_only == "/ask-raven.html" or path_only == "/satacheck.html":
             self.send_file(ROOT.parent / "ask-raven.html", "text/html")
         elif path_only == "/futureconnect.html":
-            # Sales demo page for FutureConnect founder-barber outreach.
+            # Sales demo page for FutureConnect founder-barber outreach, linked from homepage.
             self.send_file(ROOT.parent / "futureconnect.html", "text/html")
         elif path_only == "/ask-raven.js":
             # Customer scam check JavaScript
