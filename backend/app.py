@@ -765,11 +765,12 @@ class Handler(BaseHTTPRequestHandler):
                 # Serve Guardian console from backend/public
                 self.send_file(ROOT / "public" / "index.html", "text/html")
         elif app_page_for_path(path_only):
-            self.send_file(ROOT.parent / "app" / app_page_for_path(path_only), "text/html")
+            # Public app/tier pages are intentionally hidden while FutureFeature is the only public site.
+            self.send_file(ROOT.parent / "index.html", "text/html")
         elif path_only == "/app/app.css":
-            self.send_file(ROOT.parent / "app" / "app.css", "text/css")
+            self.send_file(ROOT.parent / "style.css", "text/css")
         elif path_only == "/app/app.js":
-            self.send_file(ROOT.parent / "app" / "app.js", "application/javascript")
+            self.send_json({"status": "futurefeature"})
         elif path_only == "/style.css" or path_only == "/styles.css":
             if is_customer_site:
                 self.send_file(ROOT.parent / "style.css", "text/css")
@@ -781,10 +782,9 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self.send_file(ROOT / "public" / "app.js", "application/javascript")
         elif path_only == "/ask-raven.html" or path_only == "/satacheck.html":
-            self.send_file(ROOT.parent / "ask-raven.html", "text/html")
+            self.send_file(ROOT.parent / "index.html", "text/html")
         elif path_only == "/futureconnect.html":
-            # Sales demo page for FutureConnect founder-barber outreach, linked from homepage.
-            self.send_file(ROOT.parent / "futureconnect.html", "text/html")
+            self.send_file(ROOT.parent / "index.html", "text/html")
         elif path_only == "/ask-raven.js":
             # Customer scam check JavaScript
             self.send_file(ROOT.parent / "ask-raven.js", "application/javascript")
