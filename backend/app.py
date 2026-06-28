@@ -226,13 +226,18 @@ def ensure_data():
             },
         ],
         "cases": [],
+        "futureconnect_pilots": [],
     }
     DATA_FILE.write_text(json.dumps(seed, indent=2), encoding="utf-8")
 
 
 def load_state():
     ensure_data()
-    return json.loads(DATA_FILE.read_text(encoding="utf-8"))
+    state = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+    state.setdefault("clients", [])
+    state.setdefault("cases", [])
+    state.setdefault("futureconnect_pilots", [])
+    return state
 
 
 def save_state(state):
@@ -609,6 +614,44 @@ def resend_email(to, subject, text_body, html_body=None, reply_to=None):
         return {"error": str(exc)}
 
 
+
+def send_futureconnect_pilot_email(pilot):
+    notify_to = os.environ.get("RAVEN_NOTIFY_EMAIL", "akeemandrew@ravencontrol.com")
+    reply_to = os.environ.get("RAVEN_REPLY_TO", "verify@ravencontrol.com")
+    subject = f"FutureConnect founder pilot request: {pilot.get('barber_business_name') or pilot.get('name')}"
+    trouble = pilot.get("trouble", [])
+    if isinstance(trouble, list):
+        trouble_text = ", ".join(trouble) or "Not specified"
+    else:
+        trouble_text = str(trouble or "Not specified")
+    text_body = f"""New FutureConnect founder pilot request.
+
+Pilot ID: {pilot.get('id')}
+Submitted: {pilot.get('created_at')}
+
+Name: {pilot.get('name')}
+Barber/business: {pilot.get('barber_business_name')}
+Instagram: {pilot.get('instagram_handle')}
+City: {pilot.get('city')}
+Booking link: {pilot.get('booking_link')}
+Phone: {pilot.get('phone')}
+Email: {pilot.get('email')}
+DMs per week: {pilot.get('dm_volume')}
+Main trouble: {trouble_text}
+Would test at $50 setup + $49/month: {pilot.get('would_test')}
+
+Next step:
+1. Reply fast while interest is warm.
+2. Ask to book a 10-15 minute founder pilot call.
+3. Confirm whether they would pay for the pilot if the workflow fits.
+"""
+    return resend_email(
+        notify_to,
+        subject,
+        text_body,
+        reply_to=pilot.get("email") or reply_to,
+    )
+
 def send_intake_emails(case, payload):
     notify_to = os.environ.get("RAVEN_NOTIFY_EMAIL", "akeemandrew@ravencontrol.com")
     customer_email = payload.get("email", "")
@@ -773,6 +816,8 @@ class Handler(BaseHTTPRequestHandler):
             self.handle_review()
         elif self.path == "/api/public-intake":
             self.handle_public_intake()
+        elif self.path == "/api/futureconnect-pilot":
+            self.handle_futureconnect_pilot()
         elif self.path == "/api/clients":
             self.handle_client()
         elif self.path.startswith("/api/cases/") and self.path.endswith("/status"):
@@ -882,6 +927,61 @@ class Handler(BaseHTTPRequestHandler):
                 "fraud_bucket": review["fraud_bucket"],
                 "customer_response": review["customer_response"],
                 "email_delivery": case["email_delivery"],
+            },
+            status=201,
+        )
+
+
+    def handle_futureconnect_pilot(self):
+        payload = self.read_json()
+        required = ["name", "barber_business_name", "instagram_handle", "phone", "email", "would_test"]
+        missing = [field for field in required if not str(payload.get(field, "")).strip()]
+        if missing:
+            self.send_json(
+                {
+                    "error": "missing_required_fields",
+                    "fields": missing,
+                    "message": "Please fill out the required founder pilot fields.",
+                },
+                status=400,
+            )
+            return
+
+        trouble = payload.get("trouble", [])
+        if isinstance(trouble, str):
+            trouble = [trouble]
+        if not trouble:
+            trouble = ["Not specified"]
+
+        pilot = {
+            "id": f"fc-pilot-{uuid.uuid4().hex[:10]}",
+            "created_at": now_iso(),
+            "source": "futureconnect_demo",
+            "name": str(payload.get("name", "")).strip(),
+            "barber_business_name": str(payload.get("barber_business_name", "")).strip(),
+            "instagram_handle": str(payload.get("instagram_handle", "")).strip(),
+            "city": str(payload.get("city", "")).strip(),
+            "booking_link": str(payload.get("booking_link", "")).strip(),
+            "phone": str(payload.get("phone", "")).strip(),
+            "email": str(payload.get("email", "")).strip(),
+            "dm_volume": str(payload.get("dm_volume", "")).strip(),
+            "trouble": trouble,
+            "trouble_other": str(payload.get("trouble_other", "")).strip(),
+            "would_test": str(payload.get("would_test", "")).strip(),
+            "status": "New founder pilot request",
+            "notes": "",
+        }
+        state = load_state()
+        state.setdefault("futureconnect_pilots", []).insert(0, pilot)
+        pilot["email_delivery"] = send_futureconnect_pilot_email(pilot)
+        print(f"FutureConnect pilot request {pilot['id']}: {json.dumps(pilot['email_delivery'])}")
+        save_state(state)
+        self.send_json(
+            {
+                "pilot_id": pilot["id"],
+                "status": "received",
+                "message": "Thanks — your Founder Barber Access request was received. I will follow up to book a short founder pilot call.",
+                "email_delivery": pilot["email_delivery"],
             },
             status=201,
         )
