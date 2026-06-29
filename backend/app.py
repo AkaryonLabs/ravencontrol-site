@@ -20,7 +20,7 @@ DATA_DIR = ROOT / "data"
 DATA_FILE = DATA_DIR / "raven_mvp.json"
 HOST = os.environ.get("RAVEN_HOST", "0.0.0.0")
 PORT = int(os.environ.get("PORT", os.environ.get("RAVEN_PORT", "8765")))
-# Public landing deploy marker: futurefeature-superlist-1
+# Public landing deploy marker: futurefeature-local-services-1
 FREE_INTAKE_OFFERS = {"website_intake", "free_one_time_scam_check"}
 APP_ROUTES = {"/app", "/app/", "/app/index.html"}
 APP_PAGES = {
