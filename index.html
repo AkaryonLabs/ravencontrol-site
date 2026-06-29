@@ -9,7 +9,7 @@
       content="FutureFeature helps local service businesses turn DMs, missed calls, and messy requests into booked customers."
     />
     <title>FutureFeature</title>
-    <link rel="stylesheet" href="style.css?v=futurefeature-offer-1" />
+    <link rel="stylesheet" href="style.css?v=futurefeature-inquiry-1" />
   </head>
   <body class="futurefeature-site">
     <header class="ff-nav" aria-label="Main navigation">
@@ -122,6 +122,127 @@
           Best for barbers, cleaners, detailers, nail techs, trainers, tutors, mobile services, and small contractors.
         </p>
       </section>
+
+      <section class="ff-form-section" aria-labelledby="starter-form-title">
+        <div class="ff-form-copy">
+          <p class="ff-kicker">Claim a starter spot</p>
+          <h2 id="starter-form-title">Tell us what you need built.</h2>
+          <p>Send the basics and FutureFeature will follow up with the next step for your business.</p>
+        </div>
+
+        <form id="futurefeatureInquiryForm" class="ff-form">
+          <div class="ff-honeypot" aria-hidden="true">
+            <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+            <label>Company URL <input type="text" name="company_url" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <label>
+            Your name
+            <input name="owner_name" type="text" autocomplete="name" required placeholder="Akeem Andrew" />
+          </label>
+          <label>
+            Business name
+            <input name="business_name" type="text" autocomplete="organization" required placeholder="Clean Cuts Studio" />
+          </label>
+          <label>
+            Business type
+            <select name="business_type" required>
+              <option value="">Choose one</option>
+              <option>Barber / hair</option>
+              <option>Nails / beauty</option>
+              <option>Cleaning</option>
+              <option>Mobile detailing</option>
+              <option>Contractor / handyman</option>
+              <option>Trainer / tutor</option>
+              <option>Other local service</option>
+            </select>
+          </label>
+          <label>
+            Phone
+            <input name="phone" type="tel" autocomplete="tel" required placeholder="(555) 010-2222" />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+          </label>
+          <label>
+            City / service area
+            <input name="service_area" type="text" autocomplete="address-level2" placeholder="Chicago, south suburbs, mobile within 20 miles" />
+          </label>
+          <label>
+            How do customers book now?
+            <select name="current_booking">
+              <option value="">Choose one</option>
+              <option>Instagram/Facebook DMs</option>
+              <option>Text messages</option>
+              <option>Phone calls</option>
+              <option>Booking app</option>
+              <option>Website form</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            Budget / timeline
+            <select name="budget_timeline">
+              <option value="">Choose one</option>
+              <option>Ready this week</option>
+              <option>Ready this month</option>
+              <option>Just exploring</option>
+              <option>Need to talk first</option>
+            </select>
+          </label>
+
+          <fieldset>
+            <legend>What do you need most?</legend>
+            <label><input type="checkbox" name="needs" value="website" /> Website</label>
+            <label><input type="checkbox" name="needs" value="booking form" /> Booking/request form</label>
+            <label><input type="checkbox" name="needs" value="payments/deposits" /> Payments/deposits</label>
+            <label><input type="checkbox" name="needs" value="reminders/follow-ups" /> Reminders/follow-ups</label>
+            <label><input type="checkbox" name="needs" value="reviews" /> Reviews</label>
+          </fieldset>
+
+          <label class="ff-form-wide">
+            Notes
+            <textarea name="message" rows="5" placeholder="Tell us what you offer, what is messy right now, and what you want customers to do online."></textarea>
+          </label>
+
+          <button class="ff-submit" type="submit">Send starter request</button>
+          <p id="futurefeatureFormStatus" class="ff-form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
     </main>
+    <script>
+      const form = document.getElementById('futurefeatureInquiryForm');
+      const statusEl = document.getElementById('futurefeatureFormStatus');
+
+      form?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        statusEl.textContent = 'Sending your starter request...';
+        statusEl.className = 'ff-form-status';
+
+        const formData = new FormData(form);
+        const needs = formData.getAll('needs');
+        const payload = Object.fromEntries(formData.entries());
+        payload.needs = needs;
+
+        try {
+          const response = await fetch('/api/futurefeature-intake', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(result.message || 'Something went wrong. Please try again.');
+          }
+          statusEl.textContent = result.message || 'Thanks — FutureFeature received your Starter request.';
+          statusEl.className = 'ff-form-status success';
+          form.reset();
+        } catch (error) {
+          statusEl.textContent = error.message || 'Could not send your request. Please try again.';
+          statusEl.className = 'ff-form-status error';
+        }
+      });
+    </script>
   </body>
 </html>

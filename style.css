@@ -365,7 +365,8 @@ main {
 .ff-section,
 .ff-grid,
 .ff-cta,
-.ff-offer {
+.ff-offer,
+.ff-form-section {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto clamp(42px, 7vw, 92px);
 }
@@ -604,6 +605,160 @@ main {
   box-shadow: var(--shadow);
 }
 
+.ff-form-section {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 18px;
+  align-items: start;
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: clamp(34px, 6vw, 72px);
+  background: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.ff-form-copy {
+  position: sticky;
+  top: 110px;
+  padding: clamp(28px, 5vw, 54px);
+  border-radius: clamp(28px, 5vw, 52px);
+  background: linear-gradient(135deg, #fff7df, #ffe1da);
+}
+
+.ff-form-copy h2 {
+  margin: 0;
+  font-size: clamp(42px, 7vw, 92px);
+  line-height: .9;
+  letter-spacing: -0.085em;
+}
+
+.ff-form-copy > p:not(.ff-kicker) {
+  margin: 22px 0 0;
+  color: rgba(23,17,15,.72);
+  font-size: clamp(18px, 2vw, 25px);
+  line-height: 1.28;
+  letter-spacing: -0.035em;
+}
+
+.ff-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: clamp(22px, 4vw, 36px);
+  border-radius: clamp(28px, 5vw, 52px);
+  background: rgba(255,255,255,.94);
+}
+
+.ff-form label,
+.ff-form fieldset {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.ff-form input,
+.ff-form select,
+.ff-form textarea {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(23,17,15,.14);
+  border-radius: 18px;
+  padding: 14px 16px;
+  color: var(--ink);
+  background: #fffaf3;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  outline: none;
+}
+
+.ff-form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.ff-form input:focus,
+.ff-form select:focus,
+.ff-form textarea:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(255,79,63,.14);
+  background: white;
+}
+
+.ff-form fieldset {
+  grid-column: 1 / -1;
+  border: 1px solid rgba(23,17,15,.12);
+  border-radius: 24px;
+  padding: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ff-form legend {
+  padding: 0 8px;
+  font-weight: 950;
+}
+
+.ff-form fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: #fffaf3;
+}
+
+.ff-form input[type="checkbox"] {
+  width: 20px;
+  min-height: 20px;
+  accent-color: var(--red);
+}
+
+.ff-form-wide,
+.ff-submit,
+.ff-form-status {
+  grid-column: 1 / -1;
+}
+
+.ff-submit {
+  min-height: 58px;
+  border: 0;
+  border-radius: 999px;
+  color: white;
+  background: var(--red);
+  box-shadow: 0 16px 34px rgba(255,79,63,.26);
+  font-size: 17px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.ff-form-status {
+  min-height: 28px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.4;
+}
+
+.ff-form-status.success {
+  color: #087343;
+}
+
+.ff-form-status.error {
+  color: #b42318;
+}
+
+.ff-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .ff-cta p:last-child {
   max-width: 620px;
   margin: 24px auto 0;
@@ -640,12 +795,18 @@ main {
   .ff-split,
   .ff-grid,
   .ff-offer,
-  .ff-included {
+  .ff-included,
+  .ff-form-section,
+  .ff-form {
     grid-template-columns: 1fr;
   }
 
   .ff-offer-copy {
     min-height: auto;
+  }
+
+  .ff-form-copy {
+    position: static;
   }
 }
 
@@ -691,5 +852,9 @@ main {
 
   .ff-task em {
     grid-column: 2;
+  }
+
+  .ff-form fieldset {
+    grid-template-columns: 1fr;
   }
 }

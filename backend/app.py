@@ -20,7 +20,7 @@ DATA_DIR = ROOT / "data"
 DATA_FILE = DATA_DIR / "raven_mvp.json"
 HOST = os.environ.get("RAVEN_HOST", "0.0.0.0")
 PORT = int(os.environ.get("PORT", os.environ.get("RAVEN_PORT", "8765")))
-# Public landing deploy marker: futurefeature-offer-1
+# Public landing deploy marker: futurefeature-inquiry-1
 FREE_INTAKE_OFFERS = {"website_intake", "free_one_time_scam_check"}
 APP_ROUTES = {"/app", "/app/", "/app/index.html"}
 APP_PAGES = {
@@ -228,6 +228,7 @@ def ensure_data():
         ],
         "cases": [],
         "futureconnect_pilots": [],
+        "futurefeature_inquiries": [],
     }
     DATA_FILE.write_text(json.dumps(seed, indent=2), encoding="utf-8")
 
@@ -238,6 +239,7 @@ def load_state():
     state.setdefault("clients", [])
     state.setdefault("cases", [])
     state.setdefault("futureconnect_pilots", [])
+    state.setdefault("futurefeature_inquiries", [])
     return state
 
 
@@ -272,6 +274,68 @@ def has_used_free_intake(state, payload):
             continue
         contact = case.get("contact") or {}
         if customer_limit_key(contact) == key:
+            return True
+    return False
+
+
+FUTUREFEATURE_REQUIRED_FIELDS = ["owner_name", "business_name", "business_type", "phone", "email"]
+FUTUREFEATURE_HONEYPOT_FIELDS = ["website", "company_url"]
+
+
+def clean_text(value):
+    if isinstance(value, str):
+        return value.strip()
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def futurefeature_missing_required_fields(payload):
+    return [field for field in FUTUREFEATURE_REQUIRED_FIELDS if not clean_text(payload.get(field))]
+
+
+def is_futurefeature_spam(payload):
+    return any(clean_text(payload.get(field)) for field in FUTUREFEATURE_HONEYPOT_FIELDS)
+
+
+def normalize_futurefeature_needs(value):
+    if isinstance(value, list):
+        return [clean_text(item) for item in value if clean_text(item)]
+    if clean_text(value):
+        return [clean_text(value)]
+    return []
+
+
+def normalize_futurefeature_inquiry(payload):
+    return {
+        "id": f"ff-inquiry-{uuid.uuid4().hex[:10]}",
+        "created_at": now_iso(),
+        "source": "futurefeature_starter_homepage",
+        "status": "New FutureFeature Starter inquiry",
+        "owner_name": clean_text(payload.get("owner_name")),
+        "business_name": clean_text(payload.get("business_name")),
+        "business_type": clean_text(payload.get("business_type")),
+        "phone": normalize_phone(payload.get("phone")),
+        "phone_display": clean_text(payload.get("phone")),
+        "email": normalize_email(payload.get("email")),
+        "service_area": clean_text(payload.get("service_area")),
+        "current_booking": clean_text(payload.get("current_booking")),
+        "needs": normalize_futurefeature_needs(payload.get("needs")),
+        "budget_timeline": clean_text(payload.get("budget_timeline")),
+        "message": clean_text(payload.get("message")),
+        "notes": "",
+    }
+
+
+def has_existing_futurefeature_inquiry(state, payload):
+    email = normalize_email(payload.get("email"))
+    phone = normalize_phone(payload.get("phone"))
+    for inquiry in state.get("futurefeature_inquiries", []):
+        existing_email = normalize_email(inquiry.get("email"))
+        existing_phone = normalize_phone(inquiry.get("phone"))
+        if email and existing_email == email:
+            return True
+        if phone and existing_phone == phone:
             return True
     return False
 
@@ -616,6 +680,47 @@ def resend_email(to, subject, text_body, html_body=None, reply_to=None):
 
 
 
+def send_futurefeature_inquiry_email(inquiry):
+    notify_to = os.environ.get("RAVEN_NOTIFY_EMAIL", "akeemandrew@ravencontrol.com")
+    reply_to = os.environ.get("RAVEN_REPLY_TO", "verify@ravencontrol.com")
+    needs = inquiry.get("needs", [])
+    needs_text = ", ".join(needs) if isinstance(needs, list) else str(needs or "Not specified")
+    subject = f"FutureFeature Starter inquiry: {inquiry.get('business_name') or inquiry.get('owner_name')}"
+    text_body = f"""New FutureFeature Starter inquiry.
+
+Inquiry ID: {inquiry.get('id')}
+Submitted: {inquiry.get('created_at')}
+Status: {inquiry.get('status')}
+
+Owner: {inquiry.get('owner_name')}
+Business: {inquiry.get('business_name')}
+Business type: {inquiry.get('business_type')}
+Service area: {inquiry.get('service_area')}
+Phone: {inquiry.get('phone_display') or inquiry.get('phone')}
+Email: {inquiry.get('email')}
+Current booking method: {inquiry.get('current_booking')}
+Needs: {needs_text}
+Budget/timeline: {inquiry.get('budget_timeline')}
+
+Message:
+{inquiry.get('message')}
+
+Offer shown:
+FutureFeature Starter — $299 setup, then $49/month for hosting, updates, and support.
+
+Next step:
+1. Reply while interest is warm.
+2. Ask for photos/services/prices if missing.
+3. Offer a short starter call and confirm whether they want the $299 setup.
+"""
+    return resend_email(
+        notify_to,
+        subject,
+        text_body,
+        reply_to=inquiry.get("email") or reply_to,
+    )
+
+
 def send_futureconnect_pilot_email(pilot):
     notify_to = os.environ.get("RAVEN_NOTIFY_EMAIL", "akeemandrew@ravencontrol.com")
     reply_to = os.environ.get("RAVEN_REPLY_TO", "verify@ravencontrol.com")
@@ -817,6 +922,8 @@ class Handler(BaseHTTPRequestHandler):
             self.handle_review()
         elif self.path == "/api/public-intake":
             self.handle_public_intake()
+        elif self.path == "/api/futurefeature-intake":
+            self.handle_futurefeature_intake()
         elif self.path == "/api/futureconnect-pilot":
             self.handle_futureconnect_pilot()
         elif self.path == "/api/clients":
@@ -932,6 +1039,49 @@ class Handler(BaseHTTPRequestHandler):
             status=201,
         )
 
+    def handle_futurefeature_intake(self):
+        payload = self.read_json()
+        if is_futurefeature_spam(payload):
+            self.send_json({"status": "received"}, status=202)
+            return
+
+        missing = futurefeature_missing_required_fields(payload)
+        if missing:
+            self.send_json(
+                {
+                    "error": "missing_required_fields",
+                    "fields": missing,
+                    "message": "Please fill out your name, business name, business type, phone, and email.",
+                },
+                status=400,
+            )
+            return
+
+        state = load_state()
+        if has_existing_futurefeature_inquiry(state, payload):
+            self.send_json(
+                {
+                    "error": "starter_request_already_received",
+                    "message": "It looks like we already received a FutureFeature Starter request for that email or phone number. We’ll follow up soon.",
+                },
+                status=429,
+            )
+            return
+
+        inquiry = normalize_futurefeature_inquiry(payload)
+        state.setdefault("futurefeature_inquiries", []).insert(0, inquiry)
+        inquiry["email_delivery"] = send_futurefeature_inquiry_email(inquiry)
+        print(f"FutureFeature inquiry {inquiry['id']}: {json.dumps(inquiry['email_delivery'])}")
+        save_state(state)
+        self.send_json(
+            {
+                "inquiry_id": inquiry["id"],
+                "status": "received",
+                "message": "Thanks — FutureFeature received your Starter request. We’ll review your business and follow up with the next step.",
+                "email_delivery": inquiry["email_delivery"],
+            },
+            status=201,
+        )
 
     def handle_futureconnect_pilot(self):
         payload = self.read_json()
